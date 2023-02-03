@@ -1,4 +1,4 @@
-# Red Alert 2 Clan Ladder API
+# Red Alert 2 Leaderboards API
 
 ## Run locally
 

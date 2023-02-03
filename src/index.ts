@@ -6,34 +6,8 @@ import express from 'express'
 import http from 'http'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-
-const typeDefs = `#graphql
-  type Book {
-    title: String
-    author: String
-  }
-
-  type Query {
-    books: [Book]
-  }
-`
-
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-]
-
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-}
+import resolvers from './resolvers.js';
+import typeDefs from './typeDefs.js';
 
 interface MyContext {
   token?: String;

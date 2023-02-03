@@ -1,0 +1,4 @@
+type MapPool { 
+  id: ID!
+  name: String!
+}

@@ -1,0 +1,11 @@
+type Map { 
+  id: ID!
+  name: String!
+  spots: Int!
+  author: String!
+  imageUrl: String!
+}
+
+type Query {
+  maps: [Map]!
+}
