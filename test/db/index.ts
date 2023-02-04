@@ -5,7 +5,7 @@ export type Models = any
 
 const exclude = [
 	"base.ts",
-	"index.ts",
+	"session.ts",
 ]
 
 function readDir(targetDir: string, rootDir: string): string[] {

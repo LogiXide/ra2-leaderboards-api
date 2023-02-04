@@ -1,12 +1,10 @@
-import fs from "fs"
-import path from "path"
 import _ from "lodash"
-import { gql, GraphQLClient } from "graphql-request"
+import { GraphQLClient } from "graphql-request"
 import { Pool } from "pg"
-import initFixtures, { Context } from "./fixtures"
-import models from "./db"
-import { init_postgres_session } from "./db/postgres"
-import TestDataBuilder, { Realm } from "./utils/TestDataBuilder"
+import initFixtures, { Context } from "./fixtures/index.js"
+import models from "./db/index.js"
+import initSession from "./db/postgres/session.js"
+import TestDataBuilder, { Realm } from "./utils/TestDataBuilder.js"
 
 const url = "http://localhost:4000/graphql"
 const graphqlClient = new GraphQLClient(url, {
@@ -44,7 +42,7 @@ async function clear_postgres_db(session: Pool) {
 async function create_postgres_fixtures(context: Context, predefined: string[]) {
 	predefined = predefined || []
 
-	const session = init_postgres_session()
+	const session = initSession()
 	const builder = getDependencies(predefined)
 		.reduce((arr, key) => arr.concat(fixtures[key].data), [])
 		.reduce((builder, fixture: any) => {

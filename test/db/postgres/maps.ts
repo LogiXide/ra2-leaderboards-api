@@ -1,5 +1,5 @@
 import { Pool } from "pg"
-import { insert_into, delete_from } from "./base"
+import { insert_into, delete_from } from "./base.js"
 
 export default function Postgres_Maps(session: Pool) {
 	return {
