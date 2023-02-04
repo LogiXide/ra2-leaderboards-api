@@ -1,6 +1,6 @@
 import { Model, Table, Column, BelongsToMany } from 'sequelize-typescript'
-import { MapPoolMap } from 'maps1/db/map-pool-map.js'
-import { MapPool } from 'maps1/db/map-pool.js'
+import { MapPoolMap } from 'maps/db/map-pool-map.js'
+import { MapPool } from 'maps/db/map-pool.js'
 
 @Table
 export class Map extends Model {

@@ -5,12 +5,18 @@ import { MapPool } from 'maps/db/map-pool.js'
 import { MapPoolMap } from 'maps/db/map-pool-map.js'
 
 export const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './db.development.sqlite',
+  dialect: 'postgres',
+  username: "postgres",
+  password: "killmenot",
+  database: "postgres",
+  host: "127.0.0.1",
   models: [
     Map,
     MapPool,
     MapPoolMap,
   ],
+  define: {
+    underscored: true,
+  },
   repositoryMode: true,
 });
