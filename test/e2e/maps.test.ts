@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import { Context } from "../fixtures";
+import { Context } from "../fixtures/index.js";
 
 describe("maps", () => {
   const ctx: Context = {};

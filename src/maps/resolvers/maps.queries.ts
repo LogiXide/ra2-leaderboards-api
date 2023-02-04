@@ -1,4 +1,4 @@
-import { Context } from "src/types";
+import { Context } from "../../types.js";
 
 const mapsQueries = {
   maps: async (_: any, args: any, context: Context) => {
