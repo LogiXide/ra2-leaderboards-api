@@ -1,5 +1,5 @@
 type Map { 
-  id: ID!
+  id: Int!
   name: String!
   spots: Int!
   author: String!
@@ -7,5 +7,5 @@ type Map {
 }
 
 type Query {
-  maps: [Map]!
+  maps: [Map!]
 }

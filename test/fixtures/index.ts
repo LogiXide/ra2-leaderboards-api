@@ -27,7 +27,7 @@ function initFixtures(models: any, ref: any) {
 	return readDir(__dirname, __dirname + "/")
 		.reduce((fixtures, p) => {
 			// eslint-disable-next-line @typescript-eslint/no-var-requires
-			fixtures[p] = require(`./${p}`).default(models, ref)
+			fixtures[p.replace(".fixture", "")] = require(`./${p}`).default(models, ref)
 			return fixtures
 		}, {} as any)
 }

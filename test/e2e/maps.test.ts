@@ -23,12 +23,24 @@ describe("maps", () => {
       `;
       const variables = {};
       const actual = await graphqlClient.request(query, variables, requestHeaders);
-      console.log(actual.maps);
-      expect(actual.maps).toBeArrayOfSize(10);
+
+      expect(actual.maps).toBeArrayOfSize(4);
       expect(actual.maps).toEqual([
         {
-          id: ctx.class0.id,
-          name: "class0",
+          id: ctx.tiburon.id,
+          name: "Tiburon",
+        },
+        {
+          id: ctx.snow_valley.id,
+          name: "Snow Valley TL v BR",
+        },
+        {
+          id: ctx.dannath.id,
+          name: "Dannath",
+        },
+        {
+          id: ctx.estaminia.id,
+          name: "Estaminia",
         },
       ]);
     });

@@ -1,4 +1,4 @@
-import { default as mapsQueries } from './queries.js'
+import { default as mapsQueries } from './maps.queries.js'
 
 const resolvers = {
   Query: {

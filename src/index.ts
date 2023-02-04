@@ -9,13 +9,13 @@ import bodyParser from 'body-parser'
 import resolvers from './resolvers.js';
 import typeDefs from './typeDefs.js';
 
-interface MyContext {
-  token?: String;
-}
+import sequelize from "./core/db/sequelize.js";
+import { Map } from "./maps/db/map.js";
+import { Context } from "./types.js";
 
 const app = express();
 const httpServer = http.createServer(app);
-const server = new ApolloServer<MyContext>({
+const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
   introspection: true,
@@ -32,8 +32,9 @@ app.use(
   cors<cors.CorsRequest>(),
   bodyParser.json(),
   expressMiddleware(server, {
-    context: async ({ req }) => ({
-      token: req.headers.token
+    context: async ({ req }: any) => ({
+      token: req.headers.token,
+      mapRepository: sequelize.getRepository(Map)
     }),
   }),
 );
