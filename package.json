@@ -21,7 +21,7 @@
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
     "start:dev": "nodemon ./src/index.ts",
-    "db:migrate": "nodemon ./src/index.ts",
+    "db:migrate": "ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts db:migrate",
     "test": "jest --runInBand ./test/e2e"
   },
   "dependencies": {
