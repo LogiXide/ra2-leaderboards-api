@@ -1,9 +1,10 @@
 import { Sequelize } from 'sequelize-typescript'
+import sequelizeCursorPagination from 'sequelize-cursor-pagination'
 
+import config from './config/config.js'
 import { Map } from './maps/db/map.js'
 import { MapPool } from './maps/db/map-pool.js'
 import { MapPoolMap } from './maps/db/map-pool-map.js'
-import config from './config/config.js'
 import { Db } from './types.js'
 
 const env = (process.env.NODE_ENV || 'production') as keyof typeof config
@@ -20,6 +21,8 @@ export const sequelize = new Sequelize({
     underscored: true,
   },
 });
+
+Map.paginate = sequelizeCursorPagination.makePaginate(Map);
 
 const database: Db = {
   maps: Map

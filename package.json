@@ -36,6 +36,7 @@
     "pg": "^8.9.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.28.0",
+    "sequelize-cursor-pagination": "^3.4.0",
     "sequelize-typescript": "^2.1.5"
   },
   "devDependencies": {
