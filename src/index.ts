@@ -9,9 +9,8 @@ import bodyParser from 'body-parser'
 import resolvers from './resolvers.js';
 import typeDefs from './typeDefs.js';
 
-import sequelize from "./core/db/sequelize.js";
-import { Map } from "./maps/db/map.js";
-import { Context } from "./types.js";
+import db from "./db.js";
+import { Context, Db } from "./types.js";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -34,7 +33,7 @@ app.use(
   expressMiddleware(server, {
     context: async ({ req }: any) => ({
       token: req.headers.token,
-      mapRepository: sequelize.getRepository(Map)
+      db,
     }),
   }),
 );
