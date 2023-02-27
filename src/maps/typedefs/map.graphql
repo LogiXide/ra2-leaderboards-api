@@ -1,0 +1,7 @@
+type Map { 
+  id: Int!
+  name: String!
+  spots: Int!
+  author: String!
+  imageUrl: String!
+}

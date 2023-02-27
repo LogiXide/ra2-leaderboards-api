@@ -1,8 +1,16 @@
-# Red Alert 2 Clan Ladder API
+# Red Alert 2 Leaderboards API
 
-## Run locally
+## Development
 
 ```shell
+docker-compose up
 npm install
-npm start
+npm run db:migrate
+npm start:dev
+```
+
+## Tests
+
+```shell
+npm test
 ```

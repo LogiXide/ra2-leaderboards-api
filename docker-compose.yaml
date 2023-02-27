@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ra2_leaderboards_postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: killmenot
+    networks:
+      graph_network:
+        ipv4_address: 10.20.0.10
+
+networks:
+  graph_network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.20.0.0/16
