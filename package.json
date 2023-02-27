@@ -22,6 +22,8 @@
     "start": "npm run compile && node ./dist/index.js",
     "start:dev": "nodemon ./src/index.ts",
     "db:migrate": "ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts db:migrate",
+    "db:seeds:create": "ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts seed:generate",
+    "db:seeds": "ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts db:seed:all",
     "test": "jest --runInBand ./test/e2e"
   },
   "dependencies": {
