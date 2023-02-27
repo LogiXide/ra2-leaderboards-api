@@ -24,7 +24,6 @@ function readDir(targetDir: string, rootDir: string): string[] {
 const models = readDir(__dirname, __dirname + "/")
 	.reduce((models: Models, file: string) => {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-    console.log(`./${file}`)
 		const model = require(`./${file}`).default
 		models[model.name] = model
 		return models

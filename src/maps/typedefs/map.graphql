@@ -5,7 +5,3 @@ type Map {
   author: String!
   imageUrl: String!
 }
-
-type Query {
-  maps: [Map!]
-}

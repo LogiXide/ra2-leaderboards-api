@@ -1,0 +1,30 @@
+enum MapSortOption {
+	by_id
+}
+
+input MapsWhere {
+  name_STARTS_WITH: String
+}
+
+input MapsOptions {
+  sort: MapsSortOptions
+	offset: Int
+	limit: Int = 100
+}
+
+input MapsSortOptions {
+  option: MapSortOption!
+	direction: SortDirection = ASC
+}
+
+type MapsResponse {
+  data: [Map]!
+	pageNumber: Int!
+  size: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
+type Query {
+  maps(where: MapsWhere, options: MapsOptions): MapsResponse!
+}

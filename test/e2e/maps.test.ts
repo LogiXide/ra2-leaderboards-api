@@ -14,18 +14,24 @@ describe("maps", () => {
   describe("maps query", () => {
     it("should be able to return maps", async () => {
       const query = gql`
-        query {
-          maps {
-            id
-            name
+        query($where: MapsWhere, $options: MapsOptions) {
+          maps(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `;
       const variables = {};
       const actual = await graphqlClient.request(query, variables, requestHeaders);
 
-      expect(actual.maps).toBeArrayOfSize(4);
-      expect(actual.maps).toEqual([
+      expect(actual.maps.data).toBeArrayOfSize(4);
+      expect(actual.maps.data).toEqual([
         {
           id: ctx.tiburon.id,
           name: "Tiburon",
@@ -43,6 +49,50 @@ describe("maps", () => {
           name: "Estaminia",
         },
       ]);
+      expect(actual.maps.pageNumber).toEqual(1);
+      expect(actual.maps.size).toEqual(100);
+      expect(actual.maps.totalCount).toEqual(4);
+      expect(actual.maps.totalPages).toEqual(1);
+    });
+
+    it.only("should be able to return maps (pagination)", async () => {
+      const query = gql`
+        query($where: MapsWhere, $options: MapsOptions) {
+          maps(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `;
+      const variables = {
+        options: {
+          offset: 2,
+          limit: 2,
+        }
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.maps.data).toBeArrayOfSize(2);
+      expect(actual.maps.data).toEqual([
+        {
+          id: ctx.dannath.id,
+          name: "Dannath",
+        },
+        {
+          id: ctx.estaminia.id,
+          name: "Estaminia",
+        },
+      ]);
+      expect(actual.maps.pageNumber).toEqual(2);
+      expect(actual.maps.size).toEqual(2);
+      expect(actual.maps.totalCount).toEqual(4);
+      expect(actual.maps.totalPages).toEqual(2);
     });
   });
 });
