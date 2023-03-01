@@ -55,7 +55,7 @@ describe("maps", () => {
       expect(actual.maps.totalPages).toEqual(1);
     });
 
-    it.only("should be able to return maps (pagination)", async () => {
+    it("should be able to return maps (pagination)", async () => {
       const query = gql`
         query($where: MapsWhere, $options: MapsOptions) {
           maps(where: $where, options: $options) {

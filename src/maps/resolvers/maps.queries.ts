@@ -13,7 +13,7 @@ const mapsQueries = {
   maps: async (parent: any, args: Maps_Args, context: Context): Promise<PaginationResponse<Map>> => {
     const limit = args.options?.limit || 100;
     const offset = args.options?.offset || 0;
-    console.log(args)
+
     const { edges, totalCount } = await context.db.maps.paginate({
       order: [
         ['id', 'ASC'],
