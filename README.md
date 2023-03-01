@@ -6,7 +6,7 @@
 docker-compose up
 npm install
 npm run db:migrate
-npm start:dev
+npm run start:dev
 ```
 
 ## Tests
