@@ -30,9 +30,13 @@ function getDependencies(keys: string[]): string[] {
 // Postgres helpers
 async function clear_postgres_db(session: Pool) {
 	const tasks = [
-    models.Postgres_MapPoolMaps,
+    models.Postgres_MapPoolsMaps,
     models.Postgres_MapPools,
 		models.Postgres_Maps,
+
+    models.Postgres_TeamsPlayers,
+    models.Postgres_Teams,
+    models.Postgres_Players,
 	]
 
 	for (const task of tasks) {
