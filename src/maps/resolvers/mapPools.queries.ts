@@ -10,7 +10,7 @@ interface IMapPoolsArgs {
 }
 
 const mapPoolsQueries = {
-  maps: async (parent: unknown, args: IMapPoolsArgs, context: Context): Promise<PaginationResponse<MapPool>> => {
+  mapPools: async (parent: unknown, args: IMapPoolsArgs, context: Context): Promise<PaginationResponse<MapPool>> => {
     const limit = args.options?.limit || 100;
     const offset = args.options?.offset || 0;
 
