@@ -1,12 +1,12 @@
 import { Context } from "../../types.js";
 import { PaginationResponse } from "../../core/models/index.js";
 import { toPaginationResponse } from "../../core/utils/pagination.js";
-import { MapsWhere, MapsOptions } from "../models/index.js";
+import { IMapsWhere, IMapsOptions } from "../models/index.js";
 import { Map } from "../db/map.js";
 
 interface Maps_Args {
-  where?: MapsWhere,
-  options?: MapsOptions,
+  where?: IMapsWhere,
+  options?: IMapsOptions,
 };
 
 const mapsQueries = {

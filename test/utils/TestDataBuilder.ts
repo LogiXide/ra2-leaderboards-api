@@ -7,10 +7,10 @@ export enum Realm {
 }
 
 export class Reference {
-  path: any;
-  template: any;
+  path: string;
+  template?: string;
 
-  constructor(path: any, template: any) {
+  constructor(path: string, template?: string) {
     this.path = path;
     this.template = template;
   }
@@ -24,6 +24,8 @@ export class Reference {
     return this.template ? format(this.template, result) : result;
   }
 }
+
+export type Ref = (path: string, template?: string) => Reference
 
 export default class TestDataBuilder {
   definitions: Array<any>;
@@ -95,7 +97,7 @@ export default class TestDataBuilder {
     return result;
   }
 
-  static ref(path: any, template: any) {
+  static ref(path: string, template?: string): Reference {
     return new Reference(path, template);
   }
 }

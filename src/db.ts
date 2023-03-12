@@ -28,7 +28,8 @@ export const sequelize = new Sequelize({
 });
 
 const database: Db = {
-  maps: Map
+  maps: Map,
+  mapPools: MapPool,
 }
 
 export default database

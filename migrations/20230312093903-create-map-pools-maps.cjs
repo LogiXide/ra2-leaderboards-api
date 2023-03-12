@@ -5,28 +5,20 @@ const { DataTypes } = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.createTable('maps', {
+    return queryInterface.createTable('map_pools_maps', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      spots: {
+      map_pool_id: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      author: {
+      map_id: {
         allowNull: false,
-        type: Sequelize.STRING
-      },
-      image_url: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,
@@ -42,6 +34,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    return queryInterface.dropTable('maps');
+    return queryInterface.dropTable('map_pools');
   }
 };
