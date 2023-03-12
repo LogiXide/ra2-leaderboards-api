@@ -1,10 +1,9 @@
-import { ModelType, Sequelize } from 'sequelize-typescript'
+import { Sequelize } from 'sequelize-typescript'
 import sequelizeCursorPagination from 'sequelize-cursor-pagination'
 
 import config from './config/config.js'
-import { Map } from './maps/db/map.js'
-import { MapPool } from './maps/db/map-pool.js'
-import { MapPoolMap } from './maps/db/map-pool-map.js'
+import { MapPoolMap, MapPool, Map } from "./maps/db/index.js";
+import { Player, Team, TeamPlayer } from "./players/db/index.js";
 import { Db } from './types.js'
 
 const env = (process.env.NODE_ENV || 'production') as keyof typeof config
@@ -16,6 +15,9 @@ export const sequelize = new Sequelize({
     Map,
     MapPool,
     MapPoolMap,
+    Player,
+    Team,
+    TeamPlayer,
   ],
   hooks: {
     afterDefine(modelType: any) {
@@ -30,6 +32,9 @@ export const sequelize = new Sequelize({
 const database: Db = {
   maps: Map,
   mapPools: MapPool,
+  players: Player,
+  teams: Team,
+  teamPlayers: TeamPlayer,
 }
 
 export default database

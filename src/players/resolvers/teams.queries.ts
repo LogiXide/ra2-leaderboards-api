@@ -1,20 +1,20 @@
 import { Context } from "../../types.js";
 import { PaginationResponse } from "../../core/models/index.js";
 import { toPaginationResponse } from "../../core/utils/pagination.js";
-import { IMapsWhere, IMapsOptions } from "../models/index.js";
-import { Map } from "../db/map.js";
+import { ITeamsWhere, ITeamsOptions } from "../models/index.js";
+import { Team } from "../db/team.js";
 
-interface IMapsArgs {
-  where?: IMapsWhere,
-  options?: IMapsOptions,
+interface ITeamsArgs {
+  where?: ITeamsWhere,
+  options?: ITeamsOptions,
 };
 
-const mapsQueries = {
-  maps: async (parent: unknown, args: IMapsArgs, context: Context): Promise<PaginationResponse<Map>> => {
+const teamsQueries = {
+  teams: async (parent: unknown, args: ITeamsArgs, context: Context): Promise<PaginationResponse<Team>> => {
     const limit = args.options?.limit || 100;
     const offset = args.options?.offset || 0;
 
-    const { edges, totalCount } = await context.db.maps.paginate({
+    const { edges, totalCount } = await context.db.teams.paginate({
       order: [
         ['id', 'ASC'],
       ],
@@ -26,4 +26,4 @@ const mapsQueries = {
   },
 };
 
-export default mapsQueries;
+export default teamsQueries;

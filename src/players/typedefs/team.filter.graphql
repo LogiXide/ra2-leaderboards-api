@@ -1,0 +1,30 @@
+enum TeamSortOption {
+  by_id
+}
+
+input TeamsWhere {
+  name_STARTS_WITH: String
+}
+
+input TeamsOptions {
+  sort: TeamsSortOptions
+  offset: Int
+  limit: Int = 100
+}
+
+input TeamsSortOptions {
+  option: TeamSortOption!
+  direction: SortDirection = ASC
+}
+
+type TeamsResponse {
+  data: [Map]!
+  pageNumber: Int!
+  size: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
+type Query {
+  teams(where: TeamsWhere, options: TeamsOptions): TeamsResponse!
+}

@@ -1,12 +1,14 @@
 import DataLoader from "dataloader";
 
-import { MapPoolMap } from "./maps/db/map-pool-map.js";
-import { MapPool } from "./maps/db/map-pool.js";
-import { Map } from "./maps/db/map.js";
+import { MapPoolMap, MapPool, Map } from "./maps/db/index.js";
+import { Player, Team, TeamPlayer } from "./players/db/index.js";
 
 export interface Db {
   maps: typeof Map
   mapPools: typeof MapPool
+  players: typeof Player,
+  teams: typeof Team,
+  teamPlayers: typeof TeamPlayer,
 }
 
 export interface DataLoaders {
