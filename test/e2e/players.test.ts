@@ -90,8 +90,8 @@ describe("players", () => {
       };
       const actual = await graphqlClient.request(query, variables, requestHeaders);
 
-      expect(actual.maps.data).toBeArrayOfSize(2);
-      expect(actual.maps.data).toEqual([
+      expect(actual.players.data).toBeArrayOfSize(2);
+      expect(actual.players.data).toEqual([
         {
           id: ctx.gamzat.id,
           name: "[R]Gamzat001",
@@ -101,10 +101,10 @@ describe("players", () => {
           name: "Sai",
         },
       ]);
-      expect(actual.maps.pageNumber).toEqual(2);
-      expect(actual.maps.size).toEqual(2);
-      expect(actual.maps.totalCount).toEqual(7);
-      expect(actual.maps.totalPages).toEqual(4);
+      expect(actual.players.pageNumber).toEqual(2);
+      expect(actual.players.size).toEqual(2);
+      expect(actual.players.totalCount).toEqual(7);
+      expect(actual.players.totalPages).toEqual(4);
     });
   });
 });

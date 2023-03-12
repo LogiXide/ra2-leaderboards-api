@@ -7,7 +7,8 @@ const __dirname = dirname(__filename)
 
 const gqlFiles = [
   'core',
-  'maps'
+  'maps',
+  'players',
 ]
   .map(m => join(__dirname, `./${m}/typedefs`))
   .flatMap(it => readdirSync(it).map(filename => join(it, filename)))

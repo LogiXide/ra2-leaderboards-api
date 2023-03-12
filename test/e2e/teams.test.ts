@@ -82,8 +82,8 @@ describe("teams", () => {
       };
       const actual = await graphqlClient.request(query, variables, requestHeaders);
 
-      expect(actual.maps.data).toBeArrayOfSize(2);
-      expect(actual.maps.data).toEqual([
+      expect(actual.teams.data).toBeArrayOfSize(2);
+      expect(actual.teams.data).toEqual([
         {
           id: ctx.team2.id,
           name: "team2",
@@ -93,10 +93,10 @@ describe("teams", () => {
           name: "team3",
         },
       ]);
-      expect(actual.maps.pageNumber).toEqual(2);
-      expect(actual.maps.size).toEqual(2);
-      expect(actual.maps.totalCount).toEqual(5);
-      expect(actual.maps.totalPages).toEqual(3);
+      expect(actual.teams.pageNumber).toEqual(2);
+      expect(actual.teams.size).toEqual(2);
+      expect(actual.teams.totalCount).toEqual(5);
+      expect(actual.teams.totalPages).toEqual(3);
     });
   });
 });
