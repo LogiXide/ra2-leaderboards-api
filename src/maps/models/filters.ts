@@ -1,17 +1,17 @@
 import { MapSortOption } from "./enums.js"
 import { SortDirection } from "../../core/models/index.js"
 
-export interface MapsWhere {
+export interface IMapsWhere {
   name_STARTS_WITH?: String
 }
 
-export interface MapsOptions {
-  sort?: MapsSortOptions
+export interface IMapsOptions {
+  sort?: IMapsSortOptions
 	offset?: number
 	limit?: number
 }
 
-export interface MapsSortOptions {
+export interface IMapsSortOptions {
   option: MapSortOption
 	direction: SortDirection
 }

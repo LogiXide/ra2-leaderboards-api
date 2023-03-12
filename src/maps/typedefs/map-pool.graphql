@@ -1,4 +1,6 @@
 type MapPool { 
-  id: ID!
+  id: Int!
   name: String!
+
+  maps: [Map!]
 }

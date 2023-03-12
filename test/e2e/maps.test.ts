@@ -94,5 +94,72 @@ describe("maps", () => {
       expect(actual.maps.totalCount).toEqual(4);
       expect(actual.maps.totalPages).toEqual(2);
     });
+
+    it("should be able to return maps (with map pools)", async () => {
+      const query = gql`
+        query($where: MapsWhere, $options: MapsOptions) {
+          maps(where: $where, options: $options) {
+            data {
+              id
+              name
+              mapPools {
+                id
+                name
+              }
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `;
+      const variables = {};
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.maps.data).toBeArrayOfSize(4);
+      expect(actual.maps.data).toEqual([
+        {
+          id: ctx.tiburon.id,
+          name: "Tiburon",
+          mapPools: [
+            {
+              id: ctx.yr.id,
+              name: "Yuri's Revenge",
+            },
+          ],
+        },
+        {
+          id: ctx.snow_valley.id,
+          name: "Snow Valley TL v BR",
+          mapPools: [
+            {
+              id: ctx.yr.id,
+              name: "Yuri's Revenge",
+            },
+          ],
+        },
+        {
+          id: ctx.dannath.id,
+          name: "Dannath",
+          mapPools: [
+            {
+              id: ctx.ra2.id,
+              name: "Red Alert 2",
+            },
+          ],
+        },
+        {
+          id: ctx.estaminia.id,
+          name: "Estaminia",
+          mapPools: [
+            {
+              id: ctx.ra2.id,
+              name: "Red Alert 2",
+            },
+          ],
+        },
+      ]);
+    });
   });
 });

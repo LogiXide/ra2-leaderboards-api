@@ -1,6 +1,8 @@
 import path from "path"
 import fs from "fs"
 
+import { Ref } from "../utils/TestDataBuilder.js"
+
 export type Context = any
 
 const exclude = [
@@ -23,7 +25,7 @@ function readDir(dir: string, rootDir: string): string[] {
 		})
 }
 
-function initFixtures(models: any, ref: any) {
+function initFixtures(models: any, ref: Ref) {
 	return readDir(__dirname, __dirname + "/")
 		.reduce((fixtures, p) => {
 			// eslint-disable-next-line @typescript-eslint/no-var-requires

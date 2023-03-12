@@ -4,4 +4,6 @@ type Map {
   spots: Int!
   author: String!
   imageUrl: String!
+
+  mapPools: [MapPool!]
 }
