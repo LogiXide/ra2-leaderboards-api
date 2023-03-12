@@ -1,0 +1,30 @@
+enum MapPoolSortOption {
+	by_id
+}
+
+input MapPoolsWhere {
+  name_STARTS_WITH: String
+}
+
+input MapPoolsOptions {
+  sort: MapPoolSortOption
+	offset: Int
+	limit: Int = 100
+}
+
+input MapPoolsSortOptions {
+  option: MapPoolSortOption!
+	direction: SortDirection = ASC
+}
+
+type MapPoolsResponse {
+  data: [MapPool]!
+	pageNumber: Int!
+  size: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
+type Query {
+  mapPools(where: MapPoolsWhere, options: MapPoolsOptions): MapPoolsResponse!
+}
