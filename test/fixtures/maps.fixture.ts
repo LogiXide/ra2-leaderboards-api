@@ -3,7 +3,7 @@ import { Ref } from "../utils/TestDataBuilder.js"
 export default (models: any, ref: Ref) => {
 	const Map = models.Postgres_Maps
   const MapPool = models.Postgres_MapPools
-  const MapPoolMap = models.Postgres_MapPoolMaps
+  const MapPoolsMap = models.Postgres_MapPoolsMaps
 
 	const maps = [
     {
@@ -77,7 +77,7 @@ export default (models: any, ref: Ref) => {
     },
 	]
 
-  const mapPoolMaps = [
+  const mapPoolsMaps = [
     ...[
       // Yuri's Revenge
       {
@@ -108,7 +108,7 @@ export default (models: any, ref: Ref) => {
     ].map((data, index) =>
       ({
         name: `map_pool_map_${index}`,
-        model: MapPoolMap,
+        model: MapPoolsMap,
         data,
       })
     ),
@@ -119,7 +119,7 @@ export default (models: any, ref: Ref) => {
 		data: [
 			...maps,
       ...mapPools,
-      ...mapPoolMaps,
+      ...mapPoolsMaps,
 		],
 	}
 }

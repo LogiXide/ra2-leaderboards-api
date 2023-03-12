@@ -1,0 +1,30 @@
+enum PlayerSortOption {
+  by_id
+}
+
+input PlayersWhere {
+  name_STARTS_WITH: String
+}
+
+input PlayersOptions {
+  sort: PlayersSortOptions
+  offset: Int
+  limit: Int = 100
+}
+
+input PlayersSortOptions {
+  option: PlayerSortOption!
+  direction: SortDirection = ASC
+}
+
+type PlayersResponse {
+  data: [Map]!
+  pageNumber: Int!
+  size: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
+type Query {
+  players(where: PlayersWhere, options: PlayersOptions): PlayersResponse!
+}
