@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 import { Context } from "../fixtures/index.js";
 
-describe("map_pools", () => {
+describe("mapPools", () => {
   const ctx: Context = {};
   const requestHeaders: Record<string, string> = {};
 
