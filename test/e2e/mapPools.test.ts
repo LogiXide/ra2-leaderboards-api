@@ -11,8 +11,8 @@ describe("map_pools", () => {
     await testHelpers.create_postgres_fixtures(ctx, fixtures);
   });
 
-  describe("map_pools query", () => {
-    it("should be able to return map_pools", async () => {
+  describe("mapPools query", () => {
+    it("should be able to return mapPools", async () => {
       const query = gql`
         query($where: MapPoolsWhere, $options: MapPoolsOptions) {
           mapPools(where: $where, options: $options) {
@@ -59,7 +59,7 @@ describe("map_pools", () => {
       expect(actual.mapPools.totalPages).toEqual(1);
     });
 
-    it("should be able to return map_pools (pagination)", async () => {
+    it("should be able to return mapPools (pagination)", async () => {
       const query = gql`
         query($where: MapPoolsWhere, $options: MapPoolsOptions) {
           mapPools(where: $where, options: $options) {
