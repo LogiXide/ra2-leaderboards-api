@@ -1,4 +1,4 @@
-import { MapSortOption } from "./enums.js"
+import { MapSortOption, MapPoolSortOption } from "./enums.js"
 import { SortDirection } from "../../core/models/index.js"
 
 export interface IMapsWhere {
@@ -13,5 +13,20 @@ export interface IMapsOptions {
 
 export interface IMapsSortOptions {
   option: MapSortOption
+	direction: SortDirection
+}
+
+export interface IMapPoolsWhere {
+  name_STARTS_WITH?: String
+}
+
+export interface IMapPoolsOptions {
+  sort?: IMapPoolsSortOptions
+	offset?: number
+	limit?: number
+}
+
+export interface IMapPoolsSortOptions {
+  option: MapPoolSortOption
 	direction: SortDirection
 }
