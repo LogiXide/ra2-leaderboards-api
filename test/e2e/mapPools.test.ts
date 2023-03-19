@@ -7,7 +7,7 @@ describe("mapPools", () => {
 
   const fixtures = ["mapPools"];
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await testHelpers.create_postgres_fixtures(ctx, fixtures);
   });
 
@@ -97,6 +97,85 @@ describe("mapPools", () => {
       expect(actual.mapPools.size).toEqual(2);
       expect(actual.mapPools.totalCount).toEqual(5);
       expect(actual.mapPools.totalPages).toEqual(3);
+    });
+  });
+
+  describe("createMapPool mutation", () => {
+    it("should be able to create mapPool", async () => {
+      const query = gql`
+        mutation($input: CreateMapPoolInput!) {
+          createMapPool(input: $input) {
+            mapPools {
+              id
+              name
+            }
+          }
+        }
+      `;
+      const variables = {
+        input: {
+          name: "foobar",
+        },
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.createMapPool.mapPools).toEqual([
+        {
+          id: expect.any(Number),
+          name: 'foobar',
+        },
+      ]);
+    });
+  });
+
+  describe("updateMapPool mutation", () => {
+    it("should be able to update mapPool", async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMapPoolInput!) {
+          updateMapPool(id: $id, input: $input) {
+            mapPools {
+              id
+              name
+            }
+          }
+        }
+      `;
+      const variables = {
+        id: ctx.mapPool1.id,
+        input: {
+          name: "foobar",
+        },
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.updateMapPool.mapPools).toEqual([
+        {
+          id: ctx.mapPool1.id,
+          name: 'foobar',
+        },
+      ]);
+    });
+
+    it("should NOT be able to update mapPool", async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMapPoolInput!) {
+          updateMapPool(id: $id, input: $input) {
+            mapPools {
+              id
+              name
+            }
+          }
+        }
+      `;
+      const variables = {
+        id: 123456,
+        input: {
+          name: "foobar",
+        },
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.updateMapPool.mapPools).toEqual([]);
     });
   });
 });

@@ -4,3 +4,24 @@ type MapPool {
 
   maps: [Map!]
 }
+
+input CreateMapPoolInput {
+  name: String!
+}
+
+input UpdateMapPoolInput {
+  name: String!
+}
+
+type CreateMapPoolResponse {
+  mapPools: [MapPool!]!
+}
+
+type UpdateMapPoolResponse {
+  mapPools: [MapPool!]!
+}
+
+type Mutation {
+  createMapPool(input: CreateMapPoolInput!): CreateMapPoolResponse!
+  updateMapPool(id: Int!, input: UpdateMapPoolInput!): UpdateMapPoolResponse!
+}
