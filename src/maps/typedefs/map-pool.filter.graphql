@@ -26,5 +26,6 @@ type MapPoolsResponse {
 }
 
 type Query {
+  mapPool(id: Int): MapPool
   mapPools(where: MapPoolsWhere, options: MapPoolsOptions): MapPoolsResponse!
 }

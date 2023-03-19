@@ -9,6 +9,10 @@ interface IMapPoolsArgs {
   options?: IMapPoolsOptions;
 }
 
+interface IMapPoolArgs {
+  id: number;
+}
+
 const mapPoolsQueries = {
   mapPools: async (parent: unknown, args: IMapPoolsArgs, context: Context): Promise<PaginationResponse<MapPool>> => {
     const limit = args.options?.limit || 100;
@@ -21,6 +25,11 @@ const mapPoolsQueries = {
     });
 
     return toPaginationResponse(edges, totalCount, offset, limit);
+  },
+  mapPool: async (parent: unknown, args: IMapPoolArgs, context: Context): Promise<MapPool | null> => {
+    const mapPool = await context.db.mapPools.findByPk(args.id);
+
+    return mapPool;
   },
 };
 
