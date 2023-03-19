@@ -2,7 +2,7 @@ import { MapSortOption, MapPoolSortOption } from "./enums.js"
 import { SortDirection } from "../../core/models/index.js"
 
 export interface IMapsWhere {
-  name_STARTS_WITH?: String
+  name_STARTS_WITH?: string
 }
 
 export interface IMapsOptions {
@@ -17,7 +17,7 @@ export interface IMapsSortOptions {
 }
 
 export interface IMapPoolsWhere {
-  name_STARTS_WITH?: String
+  name_STARTS_WITH?: string
 }
 
 export interface IMapPoolsOptions {

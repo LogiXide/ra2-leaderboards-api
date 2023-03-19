@@ -18,7 +18,7 @@ interface IUpdateMapPoolArgs {
 };
 
 interface IUpdateMapPoolResponse {
-  mapPools: MapPool[];
+  mapPools: MapPool[] | null;
 };
 
 const mapPoolsMutations = {
@@ -30,11 +30,11 @@ const mapPoolsMutations = {
     };
   },
   updateMapPool: async (parent: unknown, args: IUpdateMapPoolArgs, context: Context): Promise<IUpdateMapPoolResponse> => {
-    const mapPool = await context.db.mapPools.findByPk(args.id)
-    await mapPool?.update(args.input)
+    const mapPool = await context.db.mapPools.findByPk(args.id);
+    await mapPool?.update(args.input);
 
     return {
-      mapPools: mapPool ? [mapPool]: [],
+      mapPools: mapPool ? [mapPool]: null,
     };
   },
 };
