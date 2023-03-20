@@ -1,3 +1,4 @@
+import { default as mapsMutations } from "./maps.mutations.js";
 import { default as mapsQueries } from "./maps.queries.js";
 import { default as mapPoolsMutations } from "./mapPools.mutations.js";
 import { default as mapPoolsQueries } from "./mapPools.queries.js";
@@ -9,6 +10,7 @@ const resolvers = {
     ...mapPoolsQueries,
   },
   Mutation: {
+    ...mapsMutations,
     ...mapPoolsMutations,
   },
   Map: {

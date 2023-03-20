@@ -1,5 +1,5 @@
 enum MapSortOption {
-	by_id
+  by_id
 }
 
 input MapsWhere {
@@ -7,24 +7,25 @@ input MapsWhere {
 }
 
 input MapsOptions {
-  sort: MapsSortOptions
-	offset: Int
-	limit: Int = 100
+  sort: MapSortOptions
+  offset: Int
+  limit: Int = 100
 }
 
-input MapsSortOptions {
+input MapSortOptions {
   option: MapSortOption!
-	direction: SortDirection = ASC
+  direction: SortDirection = ASC
 }
 
 type MapsResponse {
   data: [Map]!
-	pageNumber: Int!
+  pageNumber: Int!
   size: Int!
   totalCount: Int!
   totalPages: Int!
 }
 
 type Query {
+  map(id: Int): Map
   maps(where: MapsWhere, options: MapsOptions): MapsResponse!
 }

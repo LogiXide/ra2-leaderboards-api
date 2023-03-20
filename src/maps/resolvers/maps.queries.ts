@@ -5,9 +5,13 @@ import { IMapsWhere, IMapsOptions } from "../models/index.js";
 import { Map } from "../db/map.js";
 
 interface IMapsArgs {
-  where?: IMapsWhere,
-  options?: IMapsOptions,
-};
+  where?: IMapsWhere;
+  options?: IMapsOptions;
+}
+
+interface IMapArgs {
+  id: number;
+}
 
 const mapsQueries = {
   maps: async (parent: unknown, args: IMapsArgs, context: Context): Promise<PaginationResponse<Map>> => {
@@ -15,14 +19,18 @@ const mapsQueries = {
     const offset = args.options?.offset || 0;
 
     const { edges, totalCount } = await context.db.maps.paginate({
-      order: [
-        ['id', 'ASC'],
-      ],
+      order: [["id", "ASC"]],
       limit,
       offset,
     });
 
     return toPaginationResponse(edges, totalCount, offset, limit);
+  },
+
+  map: async (parent: unknown, args: IMapArgs, context: Context): Promise<Map | null> => {
+    const map = await context.db.maps.findByPk(args.id);
+
+    return map;
   },
 };
 
