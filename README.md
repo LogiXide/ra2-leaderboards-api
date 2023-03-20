@@ -9,6 +9,12 @@ npm run db:migrate
 npm run start:dev
 ```
 
+## Formatting & Linters
+
+```shell
+npm run lint
+```
+
 ## Tests
 
 ```shell
