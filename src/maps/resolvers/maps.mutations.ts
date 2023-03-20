@@ -1,5 +1,5 @@
-import { Context } from "../../types.js";
-import { Map } from "../db/map.js";
+import { Context } from '../../types.js'
+import { Map } from '../db/map.js'
 
 interface ICreateMapArgs {
   input: {
@@ -30,22 +30,22 @@ interface IUpdateMapResponse {
 
 const mapsMutations = {
   createMap: async (parent: unknown, args: ICreateMapArgs, context: Context): Promise<ICreateMapResponse> => {
-    const Map = await context.db.maps.create(args.input);
+    const Map = await context.db.maps.create(args.input)
 
     return {
       maps: [Map],
-    };
+    }
   },
 
   updateMap: async (parent: unknown, args: IUpdateMapArgs, context: Context): Promise<IUpdateMapResponse> => {
-    const map = await context.db.maps.findByPk(args.id);
+    const map = await context.db.maps.findByPk(args.id)
 
-    await map?.update(args.input);
+    await map?.update(args.input)
 
     return {
       maps: map ? [map] : null,
-    };
+    }
   },
-};
+}
 
-export default mapsMutations;
+export default mapsMutations

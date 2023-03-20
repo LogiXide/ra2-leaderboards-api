@@ -6,9 +6,9 @@ import { Map } from './map.js'
 export class MapPoolMap extends Model {
   @ForeignKey(() => MapPool)
   @Column
-  mapPoolId!: number;
+    mapPoolId!: number
 
   @ForeignKey(() => Map)
   @Column
-  mapId!: number;
+    mapId!: number
 }

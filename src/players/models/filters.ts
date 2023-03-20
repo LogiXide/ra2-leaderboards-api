@@ -1,8 +1,8 @@
-import { PlayerSortOption, TeamSortOption } from "./enums.js";
-import { SortDirection } from "../../core/models/index.js";
+import { PlayerSortOption, TeamSortOption } from './enums.js'
+import { SortDirection } from '../../core/models/index.js'
 
 export interface IPlayersWhere {
-  name_STARTS_WITH?: String;
+  name_STARTS_WITH?: string;
 }
 
 export interface IPlayersOptions {
@@ -17,7 +17,7 @@ export interface IMapsSortOptions {
 }
 
 export interface ITeamsWhere {
-  name_STARTS_WITH?: String;
+  name_STARTS_WITH?: string;
 }
 
 export interface ITeamsOptions {

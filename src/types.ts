@@ -1,7 +1,7 @@
-import DataLoader from "dataloader";
+import DataLoader from 'dataloader'
 
-import { MapPoolMap, MapPool, Map } from "./maps/db/index.js";
-import { Player, Team, TeamPlayer } from "./players/db/index.js";
+import { MapPoolMap, MapPool, Map } from './maps/db/index.js'
+import { Player, Team, TeamPlayer } from './players/db/index.js'
 
 export interface Db {
   maps: typeof Map
@@ -17,7 +17,7 @@ export interface DataLoaders {
 }
 
 export interface Context {
-  token?: String;
+  token?: string;
   db: Db
   dataLoaders: DataLoaders
 }

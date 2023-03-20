@@ -6,10 +6,10 @@ import { Map } from './map.js'
 @Table
 export class MapPool extends Model {
   @Column
-  name!: string
+    name!: string
 
   @BelongsToMany(() => Map, () => MapPoolMap)
-  maps!: Map[];
+    maps!: Map[]
 
   declare static paginate: (options: PaginateOptions<MapPool>) => Promise<PaginationConnection<MapPool>>
 }
