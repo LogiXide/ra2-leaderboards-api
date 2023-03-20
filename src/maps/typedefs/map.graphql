@@ -1,4 +1,4 @@
-type Map { 
+type Map {
   id: Int!
   name: String!
   spots: Int!
@@ -6,4 +6,31 @@ type Map {
   imageUrl: String!
 
   mapPools: [MapPool!]
+}
+
+input CreateMapInput {
+  name: String!
+  spots: Int!
+  author: String!
+  imageUrl: String!
+}
+
+input UpdateMapInput {
+  name: String!
+  spots: Int!
+  author: String!
+  imageUrl: String!
+}
+
+type CreateMapResponse {
+  maps: [Map!]!
+}
+
+type UpdateMapResponse {
+  maps: [Map!]
+}
+
+type Mutation {
+  createMap(input: CreateMapInput!): CreateMapResponse!
+  updateMap(id: Int!, input: UpdateMapInput!): UpdateMapResponse!
 }
