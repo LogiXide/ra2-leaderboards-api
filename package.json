@@ -26,7 +26,11 @@
     "db:seeds:create": "./node_modules/.bin/ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts seed:generate",
     "db:seeds": "./node_modules/.bin/ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts db:seed:all",
     "lint": "./node_modules/.bin/eslint ./src --fix",
-    "test": "./node_modules/.bin/jest --runInBand ./test/e2e"
+    "test": "./node_modules/.bin/jest --runInBand ./test/e2e",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*": "npm run lint"
   },
   "dependencies": {
     "@apollo/server": "^4.3.0",
@@ -58,8 +62,10 @@
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
     "graphql-request": "^5.1.0",
+    "husky": "^8.0.3",
     "jest": "^29.4.1",
     "jest-extended": "^3.2.3",
+    "lint-staged": "^13.2.0",
     "nodemon": "^2.0.20",
     "sequelize-cli": "^6.6.0",
     "ts-jest": "^29.0.5",
