@@ -7,14 +7,14 @@ describe("maps", () => {
 
   const fixtures = ["maps"];
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await testHelpers.create_postgres_fixtures(ctx, fixtures);
   });
 
   describe("maps query", () => {
     it("should be able to return maps", async () => {
       const query = gql`
-        query($where: MapsWhere, $options: MapsOptions) {
+        query ($where: MapsWhere, $options: MapsOptions) {
           maps(where: $where, options: $options) {
             data {
               id
@@ -57,7 +57,7 @@ describe("maps", () => {
 
     it("should be able to return maps (pagination)", async () => {
       const query = gql`
-        query($where: MapsWhere, $options: MapsOptions) {
+        query ($where: MapsWhere, $options: MapsOptions) {
           maps(where: $where, options: $options) {
             data {
               id
@@ -74,7 +74,7 @@ describe("maps", () => {
         options: {
           offset: 2,
           limit: 2,
-        }
+        },
       };
       const actual = await graphqlClient.request(query, variables, requestHeaders);
 
@@ -97,7 +97,7 @@ describe("maps", () => {
 
     it("should be able to return maps (with map pools)", async () => {
       const query = gql`
-        query($where: MapsWhere, $options: MapsOptions) {
+        query ($where: MapsWhere, $options: MapsOptions) {
           maps(where: $where, options: $options) {
             data {
               id
@@ -160,6 +160,157 @@ describe("maps", () => {
           ],
         },
       ]);
+    });
+  });
+
+  describe("map query", () => {
+    it("should be able to return map", async () => {
+      const query = gql`
+        query ($id: Int!) {
+          map(id: $id) {
+            id
+            name
+            spots
+            imageUrl
+            author
+          }
+        }
+      `;
+      const variables = {
+        id: ctx.estaminia.id,
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.map).toEqual({
+        id: ctx.estaminia.id,
+        name: "Estaminia",
+        spots: 2,
+        imageUrl: "https://tempuri.org",
+        author: "[RU]Poluy",
+      });
+    });
+
+    it("should be able to return null (not found)", async () => {
+      const query = gql`
+        query ($id: Int!) {
+          map(id: $id) {
+            id
+            name
+            spots
+            imageUrl
+            author
+          }
+        }
+      `;
+      const variables = {
+        id: 123456,
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.map).toEqual(null);
+    });
+  });
+
+  describe("createMap mutation", () => {
+    it("should be able to create map", async () => {
+      const query = gql`
+        mutation ($input: CreateMapInput!) {
+          createMap(input: $input) {
+            maps {
+              id
+              name
+              spots
+              imageUrl
+              author
+            }
+          }
+        }
+      `;
+      const variables = {
+        input: {
+          name: "foobar",
+          spots: 2,
+          imageUrl: "google.com",
+          author: "alexei s",
+        },
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.createMap.maps).toEqual([
+        {
+          id: expect.any(Number),
+          name: "foobar",
+          spots: 2,
+          imageUrl: "google.com",
+          author: "alexei s",
+        },
+      ]);
+    });
+  });
+
+  describe("updateMap mutation", () => {
+    it("should be able to update map", async () => {
+      const query = gql`
+        mutation ($id: Int!, $input: UpdateMapInput!) {
+          updateMap(id: $id, input: $input) {
+            maps {
+              id
+              name
+              spots
+              imageUrl
+              author
+            }
+          }
+        }
+      `;
+      const variables = {
+        id: ctx.estaminia.id,
+        input: {
+          name: "foobar",
+          spots: 2,
+          imageUrl: "yandex.ru",
+          author: "alexei s",
+        },
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.updateMap.maps).toEqual([
+        {
+          id: ctx.estaminia.id,
+          name: "foobar",
+          spots: 2,
+          imageUrl: "yandex.ru",
+          author: "alexei s",
+        },
+      ]);
+    });
+
+    it("should NOT be able to update map", async () => {
+      const query = gql`
+        mutation ($id: Int!, $input: UpdateMapInput!) {
+          updateMap(id: $id, input: $input) {
+            maps {
+              id
+              name
+              spots
+              imageUrl
+              author
+            }
+          }
+        }
+      `;
+      const variables = {
+        id: 123456,
+        input: {
+          name: "foobar",
+          spots: 2,
+          imageUrl: "yandex.ru",
+          author: "alexei s",
+        },
+      };
+      const actual = await graphqlClient.request(query, variables, requestHeaders);
+
+      expect(actual.updateMap.maps).toEqual(null);
     });
   });
 });

@@ -6,6 +6,7 @@ interface ICreateMapPoolArgs {
     name: string;
   };
 };
+
 interface ICreateMapPoolResponse {
   mapPools: MapPool[];
 };
