@@ -5,8 +5,8 @@ import { ITeamsWhere, ITeamsOptions } from '../models/index.js'
 import { Team } from '../db/team.js'
 
 interface ITeamsArgs {
-  where?: ITeamsWhere,
-  options?: ITeamsOptions,
+  where?: ITeamsWhere;
+  options?: ITeamsOptions;
 }
 
 const teamsQueries = {
@@ -15,9 +15,7 @@ const teamsQueries = {
     const offset = args.options?.offset || 0
 
     const { edges, totalCount } = await context.db.teams.paginate({
-      order: [
-        ['id', 'ASC'],
-      ],
+      order: [['id', 'ASC']],
       limit,
       offset,
     })

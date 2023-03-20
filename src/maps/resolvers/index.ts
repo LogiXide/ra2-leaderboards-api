@@ -1,4 +1,3 @@
-
 import { default as mapsMutations } from './maps.mutations.js'
 import { default as mapsQueries } from './maps.queries.js'
 import { default as mapPoolsMutations } from './mapPools.mutations.js'

@@ -5,13 +5,9 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const gqlFiles = [
-  'core',
-  'maps',
-  'players',
-]
-  .map(m => join(__dirname, `./${m}/typedefs`))
-  .flatMap(it => readdirSync(it).map(filename => join(it, filename)))
+const gqlFiles = ['core', 'maps', 'players']
+  .map((m) => join(__dirname, `./${m}/typedefs`))
+  .flatMap((it) => readdirSync(it).map((filename) => join(it, filename)))
 
 let typeDefs = ''
 

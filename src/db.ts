@@ -11,18 +11,11 @@ const sequelizeOptions = config[env]
 
 export const sequelize = new Sequelize({
   ...sequelizeOptions,
-  models: [
-    Map,
-    MapPool,
-    MapPoolMap,
-    Player,
-    Team,
-    TeamPlayer,
-  ],
+  models: [Map, MapPool, MapPoolMap, Player, Team, TeamPlayer],
   hooks: {
     afterDefine(modelType: any) {
       modelType.paginate = sequelizeCursorPagination.makePaginate(modelType)
-    }
+    },
   },
   define: {
     underscored: true,
