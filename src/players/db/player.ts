@@ -4,7 +4,7 @@ import { PaginateOptions, PaginationConnection } from 'sequelize-cursor-paginati
 @Table
 export class Player extends Model {
   @Column
-  name!: string
+    name!: string
 
   declare static paginate: (options: PaginateOptions<Player>) => Promise<PaginationConnection<Player>>
 }

@@ -1,5 +1,5 @@
-import { MapSortOption, MapPoolSortOption } from "./enums.js"
-import { SortDirection } from "../../core/models/index.js"
+import { MapSortOption, MapPoolSortOption } from './enums.js'
+import { SortDirection } from '../../core/models/index.js'
 
 export interface IMapsWhere {
   name_STARTS_WITH?: string

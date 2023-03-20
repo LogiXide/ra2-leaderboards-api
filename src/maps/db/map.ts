@@ -6,19 +6,19 @@ import { MapPool } from './map-pool.js'
 @Table
 export class Map extends Model {
   @Column
-  name!: string
+    name!: string
 
   @Column
-  spots!: number
+    spots!: number
 
   @Column
-  author!: string
+    author!: string
 
   @Column
-  imageUrl!: string
+    imageUrl!: string
 
   @BelongsToMany(() => MapPool, () => MapPoolMap)
-  mapPools!: MapPool[]
+    mapPools!: MapPool[]
 
   declare static paginate: (options: PaginateOptions<Map>) => Promise<PaginationConnection<Map>>
 }

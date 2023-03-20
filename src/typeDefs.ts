@@ -13,10 +13,10 @@ const gqlFiles = [
   .map(m => join(__dirname, `./${m}/typedefs`))
   .flatMap(it => readdirSync(it).map(filename => join(it, filename)))
 
-let typeDefs = '';
+let typeDefs = ''
 
 gqlFiles.forEach((file) => {
-  typeDefs += readFileSync(file, { encoding: 'utf8' });
-});
+  typeDefs += readFileSync(file, { encoding: 'utf8' })
+})
 
-export default typeDefs;
+export default typeDefs

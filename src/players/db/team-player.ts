@@ -6,9 +6,9 @@ import { Team } from './team.js'
 export class TeamPlayer extends Model {
   @ForeignKey(() => Player)
   @Column
-  playerId!: number;
+    playerId!: number
 
   @ForeignKey(() => Team)
   @Column
-  teamId!: number;
+    teamId!: number
 }
