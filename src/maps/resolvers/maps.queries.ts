@@ -5,8 +5,8 @@ import { IMapsWhere, IMapsOptions } from '../models/index.js'
 import { Map } from '../db/map.js'
 
 interface IMapsArgs {
-  where?: IMapsWhere,
-  options?: IMapsOptions,
+  where?: IMapsWhere;
+  options?: IMapsOptions;
 }
 
 interface IMapArgs {

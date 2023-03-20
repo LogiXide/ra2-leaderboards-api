@@ -1,7 +1,7 @@
 export enum MapSortOption {
-	by_id
+  by_id,
 }
 
 export enum MapPoolSortOption {
-	by_id
+  by_id,
 }

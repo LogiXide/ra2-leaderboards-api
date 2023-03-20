@@ -5,8 +5,8 @@ import { IPlayersWhere, IPlayersOptions } from '../models/index.js'
 import { Player } from '../db/player.js'
 
 interface IPlayersArgs {
-  where?: IPlayersWhere,
-  options?: IPlayersOptions,
+  where?: IPlayersWhere;
+  options?: IPlayersOptions;
 }
 
 const playersQueries = {
@@ -15,9 +15,7 @@ const playersQueries = {
     const offset = args.options?.offset || 0
 
     const { edges, totalCount } = await context.db.players.paginate({
-      order: [
-        ['id', 'ASC'],
-      ],
+      order: [['id', 'ASC']],
       limit,
       offset,
     })
