@@ -1,10 +1,9 @@
-import { Ref } from "../utils/TestDataBuilder.js"
-import { range } from "../utils/array-helpers.js"
+import { range } from '../utils/array-helpers.js'
 
-export default (models: any, ref: Ref) => {
-	const MapPool = models.Postgres_MapPools;
+export default (models: any) => {
+  const MapPool = models.Postgres_MapPools
 
-	const mapPools = [
+  const mapPools = [
     ...range(5).map(n =>
       ({
         name: `mapPool${n}`,
@@ -16,13 +15,13 @@ export default (models: any, ref: Ref) => {
         },
       })
     )
-	]
+  ]
 
-	return {
-		require: [],
-		data: [
-			...mapPools,
-		],
-	}
+  return {
+    require: [],
+    data: [
+      ...mapPools,
+    ],
+  }
 }
 

@@ -1,18 +1,18 @@
-import { gql } from "graphql-request";
-import { Context } from "../fixtures/index.js";
+import { gql } from 'graphql-request'
+import { Context } from '../fixtures/index.js'
 
-describe("teams", () => {
-  const ctx: Context = {};
-  const requestHeaders: Record<string, string> = {};
+describe('teams', () => {
+  const ctx: Context = {}
+  const requestHeaders: Record<string, string> = {}
 
-  const fixtures = ["teams"];
+  const fixtures = ['teams']
 
   beforeAll(async () => {
-    await testHelpers.create_postgres_fixtures(ctx, fixtures);
-  });
+    await testHelpers.create_postgres_fixtures(ctx, fixtures)
+  })
 
-  describe("teams query", () => {
-    it("should be able to return teams", async () => {
+  describe('teams query', () => {
+    it('should be able to return teams', async () => {
       const query = gql`
         query($where: TeamsWhere, $options: TeamsOptions) {
           teams(where: $where, options: $options) {
@@ -26,40 +26,40 @@ describe("teams", () => {
             totalPages
           }
         }
-      `;
-      const variables = {};
-      const actual = await graphqlClient.request(query, variables, requestHeaders);
+      `
+      const variables = {}
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.teams.data).toBeArrayOfSize(5);
+      expect(actual.teams.data).toBeArrayOfSize(5)
       expect(actual.teams.data).toEqual([
         {
           id: ctx.team0.id,
-          name: "team0",
+          name: 'team0',
         },
         {
           id: ctx.team1.id,
-          name: "team1",
+          name: 'team1',
         },
         {
           id: ctx.team2.id,
-          name: "team2",
+          name: 'team2',
         },
         {
           id: ctx.team3.id,
-          name: "team3",
+          name: 'team3',
         },
         {
           id: ctx.team4.id,
-          name: "team4",
+          name: 'team4',
         },
-      ]);
-      expect(actual.teams.pageNumber).toEqual(1);
-      expect(actual.teams.size).toEqual(100);
-      expect(actual.teams.totalCount).toEqual(5);
-      expect(actual.teams.totalPages).toEqual(1);
-    });
+      ])
+      expect(actual.teams.pageNumber).toEqual(1)
+      expect(actual.teams.size).toEqual(100)
+      expect(actual.teams.totalCount).toEqual(5)
+      expect(actual.teams.totalPages).toEqual(1)
+    })
 
-    it("should be able to return teams (pagination)", async () => {
+    it('should be able to return teams (pagination)', async () => {
       const query = gql`
         query($where: TeamsWhere, $options: TeamsOptions) {
           teams(where: $where, options: $options) {
@@ -73,30 +73,30 @@ describe("teams", () => {
             totalPages
           }
         }
-      `;
+      `
       const variables = {
         options: {
           offset: 2,
           limit: 2,
         }
-      };
-      const actual = await graphqlClient.request(query, variables, requestHeaders);
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.teams.data).toBeArrayOfSize(2);
+      expect(actual.teams.data).toBeArrayOfSize(2)
       expect(actual.teams.data).toEqual([
         {
           id: ctx.team2.id,
-          name: "team2",
+          name: 'team2',
         },
         {
           id: ctx.team3.id,
-          name: "team3",
+          name: 'team3',
         },
-      ]);
-      expect(actual.teams.pageNumber).toEqual(2);
-      expect(actual.teams.size).toEqual(2);
-      expect(actual.teams.totalCount).toEqual(5);
-      expect(actual.teams.totalPages).toEqual(3);
-    });
-  });
-});
+      ])
+      expect(actual.teams.pageNumber).toEqual(2)
+      expect(actual.teams.size).toEqual(2)
+      expect(actual.teams.totalCount).toEqual(5)
+      expect(actual.teams.totalPages).toEqual(3)
+    })
+  })
+})

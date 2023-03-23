@@ -1,107 +1,107 @@
-import { Ref } from "../utils/TestDataBuilder.js"
+import { Ref } from '../utils/TestDataBuilder.js'
 
 export default (models: any, ref: Ref) => {
-	const Map = models.Postgres_Maps
+  const Map = models.Postgres_Maps
   const MapPool = models.Postgres_MapPools
   const MapPoolsMap = models.Postgres_MapPoolsMaps
 
-	const maps = [
+  const maps = [
     {
-      name: "tiburon",
+      name: 'tiburon',
       model: Map,
       data: {
-        name: "Tiburon",
+        name: 'Tiburon',
         spots: 4,
-        author: "JaladTanaga / Burg",
+        author: 'JaladTanaga / Burg',
         image_url: 'https://tempuri.org',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "snow_valley",
+      name: 'snow_valley',
       model: Map,
       data: {
-        name: "Snow Valley TL v BR",
+        name: 'Snow Valley TL v BR',
         spots: 2,
-        author: "Westwood Studios",
+        author: 'Westwood Studios',
         image_url: 'https://tempuri.org',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "dannath",
+      name: 'dannath',
       model: Map,
       data: {
-        name: "Dannath",
+        name: 'Dannath',
         spots: 2,
-        author: "JaladTanaga",
+        author: 'JaladTanaga',
         image_url: 'https://tempuri.org',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "estaminia",
+      name: 'estaminia',
       model: Map,
       data: {
-        name: "Estaminia",
+        name: 'Estaminia',
         spots: 2,
-        author: "[RU]Poluy",
+        author: '[RU]Poluy',
         image_url: 'https://tempuri.org',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
-	]
+  ]
 
   const mapPools = [
     {
-      name: "ra2",
+      name: 'ra2',
       model: MapPool,
       data: {
-        name: "Red Alert 2",
+        name: 'Red Alert 2',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "yr",
+      name: 'yr',
       model: MapPool,
       data: {
-        name: "Yuri's Revenge",
+        name: 'Yuri\'s Revenge',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
-	]
+  ]
 
   const mapPoolsMaps = [
     ...[
       // Yuri's Revenge
       {
-        map_pool_id: ref("yr.id"),
-        map_id: ref("tiburon.id"),
+        map_pool_id: ref('yr.id'),
+        map_id: ref('tiburon.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
       {
-        map_pool_id: ref("yr.id"),
-        map_id: ref("snow_valley.id"),
+        map_pool_id: ref('yr.id'),
+        map_id: ref('snow_valley.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
       // Red Alert 2
       {
-        map_pool_id: ref("ra2.id"),
-        map_id: ref("dannath.id"),
+        map_pool_id: ref('ra2.id'),
+        map_id: ref('dannath.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
       {
-        map_pool_id: ref("ra2.id"),
-        map_id: ref("estaminia.id"),
+        map_pool_id: ref('ra2.id'),
+        map_id: ref('estaminia.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
@@ -112,14 +112,14 @@ export default (models: any, ref: Ref) => {
         data,
       })
     ),
-	]
+  ]
 
-	return {
-		require: [],
-		data: [
-			...maps,
+  return {
+    require: [],
+    data: [
+      ...maps,
       ...mapPools,
       ...mapPoolsMaps,
-		],
-	}
+    ],
+  }
 }
