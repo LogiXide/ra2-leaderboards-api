@@ -2,6 +2,16 @@ import { format } from 'util'
 
 const isObject = (obj: object) => obj != null && obj.constructor.name === 'Object'
 
+type Context = any
+
+type Definition = {
+  name: string
+  model: any
+  properties: any
+  args: any
+  options: any
+}
+
 export enum Realm {
   Postgres = 'postgres:',
 }
@@ -15,9 +25,9 @@ export class Reference {
     this.template = template
   }
 
-  resolveFromContext(context: any) {
+  resolveFromContext(context: Context) {
     const elements = this.path.split('.')
-    const result = elements.reduce(function (obj: any, prop: any) {
+    const result = elements.reduce(function (obj: Record<string, any>, prop: string) {
       return obj?.[prop]
     }, context)
 
@@ -28,10 +38,10 @@ export class Reference {
 export type Ref = (path: string, template?: string) => Reference
 
 export default class TestDataBuilder {
-  definitions: Array<any>
+  definitions: Array<Definition>
   session: unknown
   realm: Realm
-  context: any
+  context: Context
 
   constructor(session: unknown, realm: Realm) {
     this.definitions = []
@@ -45,7 +55,7 @@ export default class TestDataBuilder {
     return this
   }
 
-  async buildTo(context: any) {
+  async buildTo(context: Context) {
     this.context = context
 
     for (const definition of this.definitions) {
@@ -53,7 +63,7 @@ export default class TestDataBuilder {
     }
   }
 
-  async buildObject(definition: any) {
+  async buildObject(definition: Definition) {
     const values = { ...(definition.properties || {}) }
     const resolvedValues = this.resolveValues(values)
 
