@@ -2,9 +2,10 @@
 
 import '@types/jest'
 import 'jest-extended'
+import { Context }  from './fixtures'
 
 type TestHelpers = {
-  create_postgres_fixtures: (ctx: any, fixtures: string[]) => Promise<void>
+  create_postgres_fixtures: (ctx: Context, fixtures: string[]) => Promise<void>
 }
 
 declare global {

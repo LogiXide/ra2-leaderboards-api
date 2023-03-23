@@ -1,4 +1,7 @@
-export default (models: any) => {
+import { Models } from '../db/index.js'
+import { Fixture } from './types.js'
+
+export default (models: Models): Fixture => {
   const Player = models.Postgres_Players
 
   const players = [

@@ -1,9 +1,11 @@
+import { Models } from '../db/index.js'
 import { range } from '../utils/array-helpers.js'
+import { FixtureItem, Fixture } from './types.js'
 
-export default (models: any) => {
+export default (models: Models): Fixture => {
   const Team = models.Postgres_Teams
 
-  const teams = [
+  const teams: FixtureItem[] = [
     ...range(5).map(n =>
       ({
         name: `team${n}`,

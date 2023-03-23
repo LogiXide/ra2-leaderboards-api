@@ -1,6 +1,8 @@
+import { Models } from '../db/index.js'
 import { range } from '../utils/array-helpers.js'
+import { Fixture } from './types.js'
 
-export default (models: any) => {
+export default (models: Models): Fixture => {
   const MapPool = models.Postgres_MapPools
 
   const mapPools = [

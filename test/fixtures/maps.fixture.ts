@@ -1,6 +1,8 @@
+import { Models } from '../db/index.js'
 import { Ref } from '../utils/TestDataBuilder.js'
+import { Fixture } from './types.js'
 
-export default (models: any, ref: Ref) => {
+export default (models: Models, ref: Ref): Fixture => {
   const Map = models.Postgres_Maps
   const MapPool = models.Postgres_MapPools
   const MapPoolsMap = models.Postgres_MapPoolsMaps

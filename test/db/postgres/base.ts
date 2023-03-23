@@ -4,7 +4,7 @@ export async function query(session: Pool, query: string) {
   await session.query(query)
 }
 
-export async function insert_into(session: Pool, table: string, input: Record<string, object>, returning: string[] = []) {
+export async function insert_into<T = object>(session: Pool, table: string, input: Record<string, object>, returning: string[] = []) {
   const columns = Object.keys(input)
   const values = columns.map((key: string, i: number) => `$${i + 1}`)
 
@@ -16,7 +16,7 @@ export async function insert_into(session: Pool, table: string, input: Record<st
   const params = columns.map((key: string) => input[key])
   const result = await session.query(query, params)
 
-  return result.rows[0]
+  return result.rows[0] as T
 }
 
 export async function delete_from(session: Pool, table: string) {
