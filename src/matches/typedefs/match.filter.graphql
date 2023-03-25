@@ -1,0 +1,31 @@
+enum MatchSortOption {
+  by_id
+}
+
+input MatchWhere {
+  name_STARTS_WITH: String
+}
+
+input MatchOptions {
+  sort: MatchSortOptions
+  offset: Int
+  limit: Int = 100
+}
+
+input MatchSortOptions {
+  option: MatchSortOption!
+  direction: SortDirection = ASC
+}
+
+type MatchResponse {
+  data: [Match]!
+  pageNumber: Int!
+  size: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
+type Query {
+  match(id: Int): Map
+  matches(where: MatchWhere, options: MatchOptions): MatchResponse!
+}

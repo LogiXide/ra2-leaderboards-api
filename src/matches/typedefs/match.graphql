@@ -1,0 +1,14 @@
+type Match {
+  id: Int!
+  name: String!
+  type: String!
+  homePlayerId: Int
+  homeTeamId: Int
+  awayPlayerId: Int
+  awayTeamId: Int
+
+  homePlayer: Player
+  homeTeam: Team
+  awayPlayer: Player
+  awayTeam: Team
+}
