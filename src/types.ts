@@ -13,7 +13,9 @@ export interface Db {
 
 export interface DataLoaders {
   mapPoolMapsByMapId: DataLoader<number, MapPoolMap[], number>;
+  mapPoolMapsByMapPoolId: DataLoader<number, MapPoolMap[], number>;
   mapPools: DataLoader<number, MapPool, number>;
+  maps: DataLoader<number, Map, number>;
 }
 
 export interface Context {

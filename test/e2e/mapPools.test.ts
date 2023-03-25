@@ -165,6 +165,50 @@ describe('mapPools', () => {
         },
       ])
     })
+
+    it('should be able to create mapPool with maps', async () => {
+      const query = gql`
+        mutation($input: CreateMapPoolInput!) {
+          createMapPool(input: $input) {
+            mapPools {
+              id
+              name
+              maps {
+                id
+                name
+              }
+            }
+          }
+        }
+      `
+      const variables = {
+        input: {
+          name: 'foobar',
+          mapIds: [
+            ctx.tiburon.id,
+            ctx.dannath.id,
+          ],
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.createMapPool.mapPools).toEqual([
+        {
+          id: expect.any(Number),
+          name: 'foobar',
+          maps: expect.arrayContaining([
+            expect.objectContaining({
+              id: ctx.tiburon.id,
+              name: 'Tiburon',
+            }),
+            expect.objectContaining({
+              id: ctx.dannath.id,
+              name: 'Dannath',
+            }),
+          ]),
+        },
+      ])
+    })
   })
 
   describe('updateMapPool mutation', () => {
@@ -191,6 +235,51 @@ describe('mapPools', () => {
         {
           id: ctx.mapPool1.id,
           name: 'foobar',
+        },
+      ])
+    })
+
+    it('should be able to update mapPool with maps', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMapPoolInput!) {
+          updateMapPool(id: $id, input: $input) {
+            mapPools {
+              id
+              name
+              maps {
+                id
+                name
+              }
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.mapPool1.id,
+        input: {
+          name: 'foobar',
+          mapIds: [
+            ctx.tiburon.id,
+            ctx.dannath.id,
+          ],
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updateMapPool.mapPools).toEqual([
+        {
+          id: ctx.mapPool1.id,
+          name: 'foobar',
+          maps: expect.arrayContaining([
+            expect.objectContaining({
+              id: ctx.tiburon.id,
+              name: 'Tiburon',
+            }),
+            expect.objectContaining({
+              id: ctx.dannath.id,
+              name: 'Dannath',
+            }),
+          ]),
         },
       ])
     })

@@ -2,7 +2,7 @@ import { Context } from '../../types.js'
 import { IMapDto } from '../models/index.js'
 import { MapPool } from '../db/map-pool.js'
 
-const mapQueries = {
+const mapResolvers = {
   mapPools: async (parent: IMapDto, args: unknown, context: Context): Promise<MapPool[]> => {
     const mapPoolMaps = await context.dataLoaders.mapPoolMapsByMapId.load(parent.id)
     const mapPoolIds = mapPoolMaps.map((it) => it.mapPoolId)
@@ -12,4 +12,4 @@ const mapQueries = {
   },
 }
 
-export default mapQueries
+export default mapResolvers

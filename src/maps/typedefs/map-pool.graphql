@@ -7,10 +7,12 @@ type MapPool {
 
 input CreateMapPoolInput {
   name: String!
+  mapIds: [Int!]
 }
 
 input UpdateMapPoolInput {
   name: String!
+  mapIds: [Int!]
 }
 
 type CreateMapPoolResponse {
