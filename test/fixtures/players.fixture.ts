@@ -1,78 +1,79 @@
-import { Ref } from "../utils/TestDataBuilder.js"
+import { Models } from '../db/index.js'
+import { Fixture } from './types.js'
 
-export default (models: any, ref: Ref) => {
-	const Player = models.Postgres_Players
+export default (models: Models): Fixture => {
+  const Player = models.Postgres_Players
 
-	const players = [
+  const players = [
     {
-      name: "zhasulan",
+      name: 'zhasulan',
       model: Player,
       data: {
-        name: "[kz]Zhasulan",
+        name: '[kz]Zhasulan',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "alexeyk",
+      name: 'alexeyk',
       model: Player,
       data: {
-        name: "alexeyk",
+        name: 'alexeyk',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "gamzat",
+      name: 'gamzat',
       model: Player,
       data: {
-        name: "[R]Gamzat001",
+        name: '[R]Gamzat001',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "marko",
+      name: 'marko',
       model: Player,
       data: {
-        name: "Sai",
+        name: 'Sai',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "lgnd",
+      name: 'lgnd',
       model: Player,
       data: {
-        name: "LGND",
+        name: 'LGND',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "kwos",
+      name: 'kwos',
       model: Player,
       data: {
-        name: "Kwos",
+        name: 'Kwos',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
     {
-      name: "latof",
+      name: 'latof',
       model: Player,
       data: {
-        name: "Latof",
+        name: 'Latof',
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
-	]
+  ]
 
-	return {
-		require: [],
-		data: [
-			...players,
-		],
-	}
+  return {
+    require: [],
+    data: [
+      ...players,
+    ],
+  }
 }

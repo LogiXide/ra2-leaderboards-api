@@ -35,7 +35,7 @@ app.use(
     context: async ({ req }: any) => ({
       token: req.headers.token,
       db,
-      dataLoaders: initDataLoaders(db),
+      dataLoaders: initDataLoaders(),
     }),
   }),
 )
