@@ -7,6 +7,7 @@ import { Fixture } from './types.js'
 
 const exclude = [
   'index.ts',
+  'types.ts',
 ]
 
 function readDir(dir: string, rootDir: string): string[] {

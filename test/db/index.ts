@@ -22,6 +22,7 @@ const exclude = [
   'index.ts',
   'base.ts',
   'session.ts',
+  'types.ts',
 ]
 
 function readDir(targetDir: string, rootDir: string): string[] {
@@ -39,7 +40,7 @@ function readDir(targetDir: string, rootDir: string): string[] {
 const models = readDir(__dirname, __dirname + '/')
   .reduce((models: Models, file: string) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const model = require(`./${file}`).default as PostgresModelFunction
+    const model = require(`./${file}`).default as unknown as PostgresModelFunction
     models[model.name] = model
     return models
   }, {} as Models)
