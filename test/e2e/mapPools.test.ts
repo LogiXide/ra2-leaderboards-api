@@ -165,6 +165,50 @@ describe('mapPools', () => {
         },
       ])
     })
+
+    it('should be able to create mapPool with maps', async () => {
+      const query = gql`
+        mutation($input: CreateMapPoolInput!) {
+          createMapPool(input: $input) {
+            mapPools {
+              id
+              name
+              maps {
+                id
+                name
+              }
+            }
+          }
+        }
+      `
+      const variables = {
+        input: {
+          name: 'foobar',
+          mapIds: [
+            ctx.tiburon.id,
+            ctx.dannath.id,
+          ],
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.createMapPool.mapPools).toEqual([
+        {
+          id: expect.any(Number),
+          name: 'foobar',
+          maps: expect.arrayContaining([
+            expect.objectContaining({
+              id: ctx.tiburon.id,
+              name: 'Tiburon',
+            }),
+            expect.objectContaining({
+              id: ctx.dannath.id,
+              name: 'Dannath',
+            }),
+          ]),
+        },
+      ])
+    })
   })
 
   describe('updateMapPool mutation', () => {

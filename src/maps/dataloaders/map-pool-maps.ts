@@ -31,7 +31,7 @@ export const initMapPoolMapsByMapPoolIdDataLoader = () => {
       },
     })
 
-    const mapPoolMapsGrouped = _.groupBy(mapPoolMaps, (it) => it.mapId)
+    const mapPoolMapsGrouped = _.groupBy(mapPoolMaps, (it) => it.mapPoolId)
     const results = mapPoolIds.map((mapPoolId) => mapPoolMapsGrouped[mapPoolId] || [])
 
     return results
