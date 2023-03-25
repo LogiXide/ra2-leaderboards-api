@@ -239,6 +239,51 @@ describe('mapPools', () => {
       ])
     })
 
+    it('should be able to update mapPool with maps', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMapPoolInput!) {
+          updateMapPool(id: $id, input: $input) {
+            mapPools {
+              id
+              name
+              maps {
+                id
+                name
+              }
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.mapPool1.id,
+        input: {
+          name: 'foobar',
+          mapIds: [
+            ctx.tiburon.id,
+            ctx.dannath.id,
+          ],
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updateMapPool.mapPools).toEqual([
+        {
+          id: ctx.mapPool1.id,
+          name: 'foobar',
+          maps: expect.arrayContaining([
+            expect.objectContaining({
+              id: ctx.tiburon.id,
+              name: 'Tiburon',
+            }),
+            expect.objectContaining({
+              id: ctx.dannath.id,
+              name: 'Dannath',
+            }),
+          ]),
+        },
+      ])
+    })
+
     it('should NOT be able to update mapPool', async () => {
       const query = gql`
         mutation($id: Int!, $input: UpdateMapPoolInput!) {

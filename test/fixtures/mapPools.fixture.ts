@@ -1,10 +1,12 @@
 import { Models } from '../db/index.js'
 import { range } from '../utils/array-helpers.js'
+import { Ref } from '../utils/TestDataBuilder.js'
 import { Fixture } from './types.js'
 
-export default (models: Models): Fixture => {
+export default (models: Models, ref: Ref): Fixture => {
   const MapPool = models.Postgres_MapPools
   const Map = models.Postgres_Maps
+  const MapPoolsMap = models.Postgres_MapPoolsMaps
 
   const mapPools = [
     ...range(5).map(n =>
@@ -71,11 +73,35 @@ export default (models: Models): Fixture => {
     },
   ]
 
+  const mapPoolsMaps = [
+    ...[
+      {
+        map_pool_id: ref('mapPool1.id'),
+        map_id: ref('tiburon.id'),
+        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
+        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
+      },
+      {
+        map_pool_id: ref('mapPool1.id'),
+        map_id: ref('snow_valley.id'),
+        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
+        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
+      },
+    ].map((data, index) =>
+      ({
+        name: `map_pool_map_${index}`,
+        model: MapPoolsMap,
+        data,
+      })
+    ),
+  ]
+
   return {
     require: [],
     data: [
       ...mapPools,
       ...maps,
+      ...mapPoolsMaps,
     ],
   }
 }
