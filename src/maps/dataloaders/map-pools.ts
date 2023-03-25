@@ -6,7 +6,7 @@ import { MapPool } from '../db/map-pool.js'
 
 export const initMapPoolsDataLoader = () =>
   new DataLoader(async (ids: Readonly<number[]>): Promise<Array<MapPool>> => {
-    const mapPoolMaps = await MapPool.findAll({
+    const mapPools = await MapPool.findAll({
       where: {
         id: {
           [Op.in]: ids,
@@ -14,8 +14,8 @@ export const initMapPoolsDataLoader = () =>
       },
     })
 
-    const mapPoolMapsIndexed = _.keyBy(mapPoolMaps, (it) => it.id)
-    const results = ids.map((id) => mapPoolMapsIndexed[id] as MapPool)
+    const mapPoolsIndexed = _.keyBy(mapPools, (it) => it.id)
+    const results = ids.map((id) => mapPoolsIndexed[id] as MapPool)
 
     return results
   })
