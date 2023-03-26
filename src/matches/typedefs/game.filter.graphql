@@ -1,0 +1,31 @@
+enum GameSortOption {
+  by_id
+}
+
+input GamesWhere {
+  name_STARTS_WITH: String
+}
+
+input GamesOptions {
+  sort: GameSortOptions
+  offset: Int
+  limit: Int = 100
+}
+
+input GameSortOptions {
+  option: GameSortOption!
+  direction: SortDirection = ASC
+}
+
+type GamesResponse {
+  data: [Game]!
+  pageNumber: Int!
+  size: Int!
+  totalCount: Int!
+  totalPages: Int!
+}
+
+type Query {
+  game(id: Int): Game
+  games(where: GamesWhere, options: GamesOptions): GamesResponse!
+}

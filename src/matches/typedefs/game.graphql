@@ -1,0 +1,16 @@
+type Game {
+  id: Int!
+  type: String!
+  winner: String!
+  matchId: Int!
+  mapId: Int!
+  homePlayerId: Int
+  homeTeamId: Int
+  awayPlayerId: Int
+  awayTeamId: Int
+
+  homePlayer: Player
+  homeTeam: Team
+  awayPlayer: Player
+  awayTeam: Team
+}
