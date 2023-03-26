@@ -1,6 +1,5 @@
 type Match {
   id: Int!
-  name: String!
   type: String!
   homePlayerId: Int
   homeTeamId: Int

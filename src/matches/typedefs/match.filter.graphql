@@ -2,11 +2,11 @@ enum MatchSortOption {
   by_id
 }
 
-input MatchWhere {
+input MatchesWhere {
   name_STARTS_WITH: String
 }
 
-input MatchOptions {
+input MatchesOptions {
   sort: MatchSortOptions
   offset: Int
   limit: Int = 100
@@ -17,7 +17,7 @@ input MatchSortOptions {
   direction: SortDirection = ASC
 }
 
-type MatchResponse {
+type MatchesResponse {
   data: [Match]!
   pageNumber: Int!
   size: Int!
@@ -26,6 +26,6 @@ type MatchResponse {
 }
 
 type Query {
-  match(id: Int): Map
-  matches(where: MatchWhere, options: MatchOptions): MatchResponse!
+  match(id: Int): Match
+  matches(where: MatchesWhere, options: MatchesOptions): MatchesResponse!
 }

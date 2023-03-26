@@ -34,6 +34,8 @@ async function clear_postgres_db(session: Pool) {
     models.Postgres_MapPools,
     models.Postgres_Maps,
 
+    models.Postgres_Matches,
+
     models.Postgres_TeamsPlayers,
     models.Postgres_Teams,
     models.Postgres_Players,

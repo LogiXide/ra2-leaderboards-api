@@ -7,22 +7,19 @@ import { Team } from '../../players/db/team.js'
 @Table
 export class Match extends Model {
   @Column
-    name!: string
-
-  @Column
     type!: string
 
   @BelongsTo(() => Player, 'homePlayerId')
-    homePlayer!: Player
+    homePlayer?: Player
 
   @BelongsTo(() => Player, 'homeTeamId')
-    homeTeam!: Team
+    homeTeam?: Team
 
   @BelongsTo(() => Player, 'awayPlayerId')
-    awayPlayer!: Player
+    awayPlayer?: Player
 
   @BelongsTo(() => Player, 'awayTeamId')
-    awayTeam!: Team
+    awayTeam?: Team
 
   declare static paginate: (options: PaginateOptions<Match>) => Promise<PaginationConnection<Match>>
 }

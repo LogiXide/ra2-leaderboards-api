@@ -2,11 +2,11 @@ enum GameSortOption {
   by_id
 }
 
-input GameWhere {
+input GamesWhere {
   name_STARTS_WITH: String
 }
 
-input GameOptions {
+input GamesOptions {
   sort: GameSortOptions
   offset: Int
   limit: Int = 100
@@ -17,7 +17,7 @@ input GameSortOptions {
   direction: SortDirection = ASC
 }
 
-type GameResponse {
+type GamesResponse {
   data: [Game]!
   pageNumber: Int!
   size: Int!
@@ -26,6 +26,6 @@ type GameResponse {
 }
 
 type Query {
-  game(id: Int): Map
-  games(where: GameWhere, options: GameOptions): GameResponse!
+  game(id: Int): Game
+  games(where: GamesWhere, options: GamesOptions): GamesResponse!
 }
