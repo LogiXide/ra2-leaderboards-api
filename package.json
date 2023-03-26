@@ -27,7 +27,10 @@
     "db:seeds": "./node_modules/.bin/ts-node-esm ./node_modules/.bin/sequelize-cli --config src/config/config.ts db:seed:all",
     "lint": "./node_modules/.bin/eslint ./{src,test} --fix",
     "test": "./node_modules/.bin/jest --runInBand ./test/e2e",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "git:clean:origin": "git fetch -p",
+    "git:clean:local": "git branch --v | grep \"\\[gone\\]\" | awk '{print $1}' | xargs git branch -D",
+    "git:clean": "npm run git:clean:origin && npm run git:clean:local"
   },
   "lint-staged": {
     "src/**/*": "npm run lint"
