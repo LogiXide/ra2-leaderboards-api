@@ -1,5 +1,6 @@
 type Game {
   id: Int!
+  type: String!
   winner: String!
   matchId: Int!
   mapId: Int!

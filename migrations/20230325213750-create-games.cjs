@@ -12,6 +12,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      type: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      winner: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       match_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -19,10 +27,6 @@ module.exports = {
       map_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
-      },
-      winner: {
-        allowNull: false,
-        type: Sequelize.STRING,
       },
       home_player_id: {
         allowNull: true,

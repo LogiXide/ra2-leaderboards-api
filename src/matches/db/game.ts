@@ -10,6 +10,9 @@ import { Match } from './match.js'
 @Table
 export class Game extends Model {
   @Column
+    type!: string
+
+  @Column
     winner!: string
 
   @BelongsTo(() => Map, 'mapId')

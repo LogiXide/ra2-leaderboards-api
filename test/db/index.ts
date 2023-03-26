@@ -3,10 +3,11 @@ import fs from 'fs'
 
 import { PostgresModelFunction } from './postgres/types.js'
 import { DbMapPoolMap, DbMapPool, DbMap } from './postgres/maps/index.js'
-import { DbMatch } from './postgres/matches/index.js'
+import { DbGame, DbMatch } from './postgres/matches/index.js'
 import { DbPlayer, DbTeamPlayer, DbTeam } from './postgres/players/index.js'
 
 export interface Models extends Record<string, PostgresModelFunction>  {
+  Postgres_Games: PostgresModelFunction<DbGame>
   Postgres_Maps: PostgresModelFunction<DbMap>
   Postgres_MapPools: PostgresModelFunction<DbMapPool>
   Postgres_MapPoolsMaps: PostgresModelFunction<DbMapPoolMap>

@@ -1,6 +1,7 @@
 type Match {
   id: Int!
   type: String!
+  winner: String!
   homePlayerId: Int
   homeTeamId: Int
   awayPlayerId: Int
