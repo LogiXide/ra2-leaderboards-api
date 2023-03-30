@@ -95,6 +95,41 @@ describe('maps', () => {
       expect(actual.maps.totalPages).toEqual(2)
     })
 
+    it('should be able to return maps (filtering, name_STARTS_WITH)', async () => {
+      const query = gql`
+        query ($where: MapsWhere, $options: MapsOptions) {
+          maps(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        where: {
+          name_STARTS_WITH: 'esta',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.maps.data).toBeArrayOfSize(1)
+      expect(actual.maps.data).toEqual([
+        {
+          id: ctx.estaminia.id,
+          name: 'Estaminia',
+        },
+      ])
+      expect(actual.maps.pageNumber).toEqual(1)
+      expect(actual.maps.size).toEqual(100)
+      expect(actual.maps.totalCount).toEqual(1)
+      expect(actual.maps.totalPages).toEqual(1)
+    })
+
     it('should be able to return maps (with map pools)', async () => {
       const query = gql`
         query ($where: MapsWhere, $options: MapsOptions) {
