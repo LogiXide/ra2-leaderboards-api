@@ -15,6 +15,9 @@ export class Game extends Model {
   @Column
     winner!: string
 
+  @Column
+    matchId!: number
+
   @BelongsTo(() => Map, 'mapId')
     map!: Map
 
