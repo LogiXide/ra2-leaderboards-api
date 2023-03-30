@@ -15,6 +15,7 @@ export interface Db {
 }
 
 export interface DataLoaders {
+  gamesByMatchId: DataLoader<number, Game[], number>;
   mapPoolMapsByMapId: DataLoader<number, MapPoolMap[], number>;
   mapPoolMapsByMapPoolId: DataLoader<number, MapPoolMap[], number>;
   mapPools: DataLoader<number, MapPool, number>;

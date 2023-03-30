@@ -7,6 +7,7 @@ type Match {
   awayPlayerId: Int
   awayTeamId: Int
 
+  games: [Game]
   homePlayer: Player
   homeTeam: Team
   awayPlayer: Player
