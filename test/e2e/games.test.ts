@@ -150,6 +150,130 @@ describe('games', () => {
       expect(actual.games.totalCount).toEqual(4)
       expect(actual.games.totalPages).toEqual(2)
     })
+
+    it('should be able to return games (with match)', async () => {
+      const query = gql`
+        query ($where: GamesWhere, $options: GamesOptions) {
+          games(where: $where, options: $options) {
+            data {
+              id
+              type
+              winner
+              mapId
+              matchId
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+              match {
+                id
+                type
+                winner
+                homePlayerId
+                homeTeamId
+                awayPlayerId
+                awayTeamId
+              }
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        options: {
+          limit: 1,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.games.data).toBeArrayOfSize(1)
+      expect(actual.games.data).toEqual([
+        {
+          id: ctx.match0_game0.id,
+          type: 'single',
+          winner: 'home',
+          mapId: ctx.tiburon.id,
+          matchId: ctx.match0.id,
+          homePlayerId: ctx.zhasulan.id,
+          homeTeamId: null,
+          awayPlayerId: ctx.alexeyk.id,
+          awayTeamId: null,
+          match: {
+            id: ctx.match0.id,
+            type: 'single',
+            winner: 'home',
+            homePlayerId: ctx.zhasulan.id,
+            homeTeamId: null,
+            awayPlayerId: ctx.alexeyk.id,
+            awayTeamId: null,
+          }
+        },
+      ])
+      expect(actual.games.pageNumber).toEqual(1)
+      expect(actual.games.size).toEqual(1)
+      expect(actual.games.totalCount).toEqual(4)
+      expect(actual.games.totalPages).toEqual(4)
+    })
+
+    it('should be able to return games (with map)', async () => {
+      const query = gql`
+        query ($where: GamesWhere, $options: GamesOptions) {
+          games(where: $where, options: $options) {
+            data {
+              id
+              type
+              winner
+              mapId
+              matchId
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+              map {
+                id
+                name
+              }
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        options: {
+          limit: 1,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.games.data).toBeArrayOfSize(1)
+      expect(actual.games.data).toEqual([
+        {
+          id: ctx.match0_game0.id,
+          type: 'single',
+          winner: 'home',
+          mapId: ctx.tiburon.id,
+          matchId: ctx.match0.id,
+          homePlayerId: ctx.zhasulan.id,
+          homeTeamId: null,
+          awayPlayerId: ctx.alexeyk.id,
+          awayTeamId: null,
+          map: {
+            id: ctx.tiburon.id,
+            name: 'Tiburon',
+          }
+        },
+      ])
+      expect(actual.games.pageNumber).toEqual(1)
+      expect(actual.games.size).toEqual(1)
+      expect(actual.games.totalCount).toEqual(4)
+      expect(actual.games.totalPages).toEqual(4)
+    })
   })
 
   describe('game query', () => {
@@ -187,6 +311,100 @@ describe('games', () => {
       })
     })
 
+    it('should be able to return game (with match)', async () => {
+      const query = gql`
+        query ($id: Int!) {
+          game(id: $id) {
+            id
+            type
+            winner
+            mapId
+            matchId
+            homePlayerId
+            homeTeamId
+            awayPlayerId
+            awayTeamId
+            match {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.match0_game0.id,
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.game).toEqual({
+        id: ctx.match0_game0.id,
+        type: 'single',
+        winner: 'home',
+        mapId: ctx.tiburon.id,
+        matchId: ctx.match0.id,
+        homePlayerId: ctx.zhasulan.id,
+        homeTeamId: null,
+        awayPlayerId: ctx.alexeyk.id,
+        awayTeamId: null,
+        match: {
+          id: ctx.match0.id,
+          type: 'single',
+          winner: 'home',
+          homePlayerId: ctx.zhasulan.id,
+          homeTeamId: null,
+          awayPlayerId: ctx.alexeyk.id,
+          awayTeamId: null,
+        }
+      })
+    })
+
+    it('should be able to return game (with map)', async () => {
+      const query = gql`
+        query ($id: Int!) {
+          game(id: $id) {
+            id
+            type
+            winner
+            mapId
+            matchId
+            homePlayerId
+            homeTeamId
+            awayPlayerId
+            awayTeamId
+            map {
+              id
+              name
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.match0_game0.id,
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.game).toEqual({
+        id: ctx.match0_game0.id,
+        type: 'single',
+        winner: 'home',
+        mapId: ctx.tiburon.id,
+        matchId: ctx.match0.id,
+        homePlayerId: ctx.zhasulan.id,
+        homeTeamId: null,
+        awayPlayerId: ctx.alexeyk.id,
+        awayTeamId: null,
+        map: {
+          id: ctx.tiburon.id,
+          name: 'Tiburon',
+        },
+      })
+    })
+
     it('should be able to return null (not found)', async () => {
       const query = gql`
         query ($id: Int!) {
@@ -212,3 +430,6 @@ describe('games', () => {
     })
   })
 })
+
+
+
