@@ -18,7 +18,7 @@ input PlayersSortOptions {
 }
 
 type PlayersResponse {
-  data: [Map]!
+  data: [Player]!
   pageNumber: Int!
   size: Int!
   totalCount: Int!

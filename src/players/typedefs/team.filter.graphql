@@ -18,7 +18,7 @@ input TeamsSortOptions {
 }
 
 type TeamsResponse {
-  data: [Map]!
+  data: [Team]!
   pageNumber: Int!
   size: Int!
   totalCount: Int!
