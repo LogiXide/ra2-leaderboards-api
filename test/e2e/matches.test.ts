@@ -35,7 +35,7 @@ describe('matches', () => {
       const variables = {}
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.matches.data).toBeArrayOfSize(4)
+      expect(actual.matches.data).toBeArrayOfSize(5)
       expect(actual.matches.data).toEqual([
         {
           id: ctx.match0.id,
@@ -73,10 +73,19 @@ describe('matches', () => {
           awayPlayerId: ctx.alexeyk.id,
           awayTeamId: null,
         },
+        {
+          id: ctx.match4.id,
+          type: 'team',
+          winner: 'home',
+          homePlayerId: null,
+          homeTeamId: ctx.team0.id,
+          awayPlayerId: null,
+          awayTeamId: ctx.team1.id,
+        },
       ])
       expect(actual.matches.pageNumber).toEqual(1)
       expect(actual.matches.size).toEqual(100)
-      expect(actual.matches.totalCount).toEqual(4)
+      expect(actual.matches.totalCount).toEqual(5)
       expect(actual.matches.totalPages).toEqual(1)
     })
 
@@ -131,8 +140,8 @@ describe('matches', () => {
       ])
       expect(actual.matches.pageNumber).toEqual(2)
       expect(actual.matches.size).toEqual(2)
-      expect(actual.matches.totalCount).toEqual(4)
-      expect(actual.matches.totalPages).toEqual(2)
+      expect(actual.matches.totalCount).toEqual(5)
+      expect(actual.matches.totalPages).toEqual(3)
     })
 
     it('should be able to return matches (with games)', async () => {
@@ -169,7 +178,7 @@ describe('matches', () => {
       const variables = {}
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.matches.data).toBeArrayOfSize(4)
+      expect(actual.matches.data).toBeArrayOfSize(5)
       expect(actual.matches.data).toEqual([
         {
           id: ctx.match0.id,
@@ -235,10 +244,20 @@ describe('matches', () => {
           awayTeamId: null,
           games: [],
         },
+        {
+          id: ctx.match4.id,
+          type: 'team',
+          winner: 'home',
+          homePlayerId: null,
+          homeTeamId: ctx.team0.id,
+          awayPlayerId: null,
+          awayTeamId: ctx.team1.id,
+          games: [],
+        },
       ])
       expect(actual.matches.pageNumber).toEqual(1)
       expect(actual.matches.size).toEqual(100)
-      expect(actual.matches.totalCount).toEqual(4)
+      expect(actual.matches.totalCount).toEqual(5)
       expect(actual.matches.totalPages).toEqual(1)
     })
   })
@@ -274,7 +293,7 @@ describe('matches', () => {
       })
     })
 
-    it.only('should be able to return match (with game)', async () => {
+    it('should be able to return match (with game)', async () => {
       const query = gql`
         query ($id: Int!) {
           match(id: $id) {
@@ -347,6 +366,191 @@ describe('matches', () => {
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
       expect(actual.match).toEqual(null)
+    })
+  })
+
+  describe('createMatchPool mutation', () => {
+    it('should be able to create match (single)', async () => {
+      const query = gql`
+        mutation($input: CreateMatchInput!) {
+          createMatch(input: $input) {
+            matches {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+          }
+        }
+      `
+      const variables = {
+        input: {
+          type: 'single',
+          homePlayerId: ctx.alexeyk.id,
+          awayPlayerId: ctx.gamzat.id,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.createMatch.matches).toEqual([
+        {
+          id: expect.any(Number),
+          type: 'single',
+          winner: null,
+          homePlayerId: ctx.alexeyk.id,
+          homeTeamId: null,
+          awayPlayerId: ctx.gamzat.id,
+          awayTeamId: null,
+        },
+      ])
+    })
+
+    it('should be able to create match (team)', async () => {
+      const query = gql`
+        mutation($input: CreateMatchInput!) {
+          createMatch(input: $input) {
+            matches {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+          }
+        }
+      `
+      const variables = {
+        input: {
+          type: 'team',
+          homeTeamId: ctx.team0.id,
+          awayTeamId: ctx.team1.id,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.createMatch.matches).toEqual([
+        {
+          id: expect.any(Number),
+          type: 'team',
+          winner: null,
+          homePlayerId: null,
+          homeTeamId: ctx.team0.id,
+          awayPlayerId: null,
+          awayTeamId: ctx.team1.id,
+        },
+      ])
+    })
+  })
+
+  describe('updateMatch mutation', () => {
+    it('should be able to update match (single)', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMatchInput!) {
+          updateMatch(id: $id, input: $input) {
+            matches {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.match0.id,
+        input: {
+          winner: 'away',
+          homePlayerId: ctx.alexeyk.id,
+          awayPlayerId: ctx.zhasulan.id,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updateMatch.matches).toEqual([
+        {
+          id: ctx.match0.id,
+          type: 'single',
+          winner: 'away',
+          homePlayerId: ctx.alexeyk.id,
+          homeTeamId: null,
+          awayPlayerId: ctx.zhasulan.id,
+          awayTeamId: null,
+        },
+      ])
+    })
+
+    it('should be able to update match (team)', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMatchInput!) {
+          updateMatch(id: $id, input: $input) {
+            matches {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.match4.id,
+        input: {
+          winner: 'away',
+          homeTeamId: ctx.team1.id,
+          awayTeamId: ctx.team0.id,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updateMatch.matches).toEqual([
+        {
+          id: ctx.match4.id,
+          type: 'team',
+          winner: 'away',
+          homePlayerId: null,
+          homeTeamId: ctx.team1.id,
+          awayPlayerId: null,
+          awayTeamId: ctx.team0.id,
+        },
+      ])
+    })
+
+    it('should NOT be able to update match', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateMatchInput!) {
+          updateMatch(id: $id, input: $input) {
+            matches {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+          }
+        }
+      `
+      const variables = {
+        id: 123456,
+        input: {
+          winner: 'home',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updateMatch.matches).toEqual(null)
     })
   })
 })
