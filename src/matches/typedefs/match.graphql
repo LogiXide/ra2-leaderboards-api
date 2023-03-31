@@ -1,7 +1,7 @@
 type Match {
   id: Int!
   type: String!
-  winner: String!
+  winner: String
   homePlayerId: Int
   homeTeamId: Int
   awayPlayerId: Int
@@ -12,4 +12,34 @@ type Match {
   homeTeam: Team
   awayPlayer: Player
   awayTeam: Team
+}
+
+input CreateMatchInput {
+  type: String!
+  winner: String
+  homePlayerId: Int
+  homeTeamId: Int
+  awayPlayerId: Int
+  awayTeamId: Int
+}
+
+input UpdateMatchInput {
+  winner: String
+  homePlayerId: Int
+  homeTeamId: Int
+  awayPlayerId: Int
+  awayTeamId: Int
+}
+
+type CreateMatchResponse {
+  matches: [Match!]!
+}
+
+type UpdateMatchResponse {
+  matches: [Match!]
+}
+
+type Mutation {
+  createMatch(input: CreateMatchInput!): CreateMatchResponse!
+  updateMatch(id: Int!, input: UpdateMatchInput!): UpdateMatchResponse!
 }

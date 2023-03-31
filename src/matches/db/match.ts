@@ -10,7 +10,7 @@ export class Match extends Model {
     type!: string
 
   @Column
-    winner!: string
+    winner?: string
 
   @BelongsTo(() => Player, 'homePlayerId')
     homePlayer?: Player

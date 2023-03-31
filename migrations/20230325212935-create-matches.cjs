@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       winner: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       home_player_id: {

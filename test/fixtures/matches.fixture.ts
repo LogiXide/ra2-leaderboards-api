@@ -169,6 +169,18 @@ export default (models: Models, ref: Ref): Fixture => {
         updated_at: new Date(Date.UTC(2023, 1, 4, 0, 0, 0)),
       },
     },
+    {
+      name: 'match4',
+      model: Match,
+      data: {
+        type: 'team',
+        winner: 'home',
+        home_team_id: ref('team0.id'),
+        away_team_id: ref('team1.id'),
+        created_at: new Date(Date.UTC(2023, 1, 4, 0, 0, 0)),
+        updated_at: new Date(Date.UTC(2023, 1, 4, 0, 0, 0)),
+      },
+    },
   ]
 
   const games = [
