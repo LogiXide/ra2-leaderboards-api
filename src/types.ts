@@ -20,6 +20,7 @@ export interface DataLoaders {
   mapPoolMapsByMapPoolId: DataLoader<number, MapPoolMap[], number>;
   mapPools: DataLoader<number, MapPool, number>;
   maps: DataLoader<number, Map, number>;
+  matches: DataLoader<number, Match, number>;
 }
 
 export interface Context {

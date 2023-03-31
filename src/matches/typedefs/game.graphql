@@ -9,7 +9,7 @@ type Game {
   awayPlayerId: Int
   awayTeamId: Int
 
-  map: Match
+  map: Map
   match: Match
   homePlayer: Player
   homeTeam: Team
