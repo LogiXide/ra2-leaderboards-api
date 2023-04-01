@@ -9,6 +9,10 @@ interface IPlayersArgs {
   options?: IPlayersOptions;
 }
 
+interface IPlayerArgs {
+  id: number;
+}
+
 const playersQueries = {
   players: async (parent: unknown, args: IPlayersArgs, context: Context): Promise<PaginationResponse<Player>> => {
     const limit = args.options?.limit || 100
@@ -21,6 +25,11 @@ const playersQueries = {
     })
 
     return toPaginationResponse(edges, totalCount, offset, limit)
+  },
+  player: async (parent: unknown, args: IPlayerArgs, context: Context): Promise<Player | null> => {
+    const player = await context.db.players.findByPk(args.id)
+
+    return player
   },
 }
 

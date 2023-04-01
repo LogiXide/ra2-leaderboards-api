@@ -107,4 +107,122 @@ describe('players', () => {
       expect(actual.players.totalPages).toEqual(4)
     })
   })
+
+  describe('player query', () => {
+    it('should be able to return player', async () => {
+      const query = gql`
+        query($id: Int!) {
+          player(id: $id) {
+            id
+            name
+          }
+        }
+      `
+      const variables = {
+        id: ctx.marko.id,
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.player).toEqual({
+        id: ctx.marko.id,
+        name: 'Sai',
+      })
+    })
+
+    it('should be able to return null (not found)', async () => {
+      const query = gql`
+        query($id: Int!) {
+          player(id: $id) {
+            id
+            name
+          }
+        }
+      `
+      const variables = {
+        id: 123456,
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.player).toEqual(null)
+    })
+  })
+
+  describe('createPlayer mutation', () => {
+    it('should be able to create player', async () => {
+      const query = gql`
+        mutation($input: CreatePlayerInput!) {
+          createPlayer(input: $input) {
+            players {
+              id
+              name
+            }
+          }
+        }
+      `
+      const variables = {
+        input: {
+          name: 'foobar',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.createPlayer.players).toEqual([
+        {
+          id: expect.any(Number),
+          name: 'foobar',
+        },
+      ])
+    })
+  })
+
+  describe('updatePlayer mutation', () => {
+    it('should be able to update player', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdatePlayerInput!) {
+          updatePlayer(id: $id, input: $input) {
+            players {
+              id
+              name
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.marko.id,
+        input: {
+          name: 'foobar',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updatePlayer.players).toEqual([
+        {
+          id: ctx.marko.id,
+          name: 'foobar',
+        },
+      ])
+    })
+
+    it('should NOT be able to update player', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdatePlayerInput!) {
+          updatePlayer(id: $id, input: $input) {
+            players {
+              id
+              name
+            }
+          }
+        }
+      `
+      const variables = {
+        id: 123456,
+        input: {
+          name: 'foobar',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updatePlayer.players).toEqual(null)
+    })
+  })
 })

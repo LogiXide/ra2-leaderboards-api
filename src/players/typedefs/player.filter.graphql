@@ -26,5 +26,6 @@ type PlayersResponse {
 }
 
 type Query {
+  player(id: Int): Player
   players(where: PlayersWhere, options: PlayersOptions): PlayersResponse!
 }

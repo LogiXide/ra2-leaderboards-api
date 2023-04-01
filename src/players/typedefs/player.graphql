@@ -1,6 +1,27 @@
-type Player { 
+type Player {
   id: Int!
   name: String!
   createdAt: String!
   updatedAt: String!
+}
+
+input CreatePlayerInput {
+  name: String!
+}
+
+input UpdatePlayerInput {
+  name: String!
+}
+
+type CreatePlayerResponse {
+  players: [Player!]!
+}
+
+type UpdatePlayerResponse {
+  players: [Player!]
+}
+
+type Mutation {
+  createPlayer(input: CreatePlayerInput!): CreatePlayerResponse!
+  updatePlayer(id: Int!, input: UpdatePlayerInput!): UpdatePlayerResponse!
 }
