@@ -3,16 +3,17 @@ type Game {
   type: String!
   winner: String!
   matchId: Int!
+  match: Match!
   mapId: Int!
+  map: Map!
   homePlayerId: Int
-  homeTeamId: Int
-  awayPlayerId: Int
-  awayTeamId: Int
-
-  map: Map
-  match: Match
   homePlayer: Player
+  homeTeamId: Int
   homeTeam: Team
+  awayPlayerId: Int
   awayPlayer: Player
+  awayTeamId: Int
   awayTeam: Team
+  createdAt: String!
+  updatedAt: String!
 }

@@ -1,6 +1,8 @@
 type MapPool { 
   id: Int!
   name: String!
+  createdAt: String!
+  updatedAt: String!
 
   maps: [Map!]
 }

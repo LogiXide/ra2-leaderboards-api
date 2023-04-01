@@ -1,5 +1,6 @@
-import { Model, Table, Column, BelongsTo } from 'sequelize-typescript'
+import { Model, Table, Column, ForeignKey, BelongsTo, CreatedAt, UpdatedAt } from 'sequelize-typescript'
 import { PaginateOptions, PaginationConnection } from 'sequelize-cursor-pagination'
+import { IGameAttributes, IGameCreationAttributes } from '../models/index.js'
 
 import { Map } from '../../maps/db/map.js'
 import { Player } from '../../players/db/player.js'
@@ -8,33 +9,57 @@ import { Team } from '../../players/db/team.js'
 import { Match } from './match.js'
 
 @Table
-export class Game extends Model {
+export class Game extends Model<IGameAttributes, IGameCreationAttributes> {
   @Column
     type!: string
 
   @Column
     winner!: string
 
-  @Column
+  @ForeignKey(() => Match)
     matchId!: number
 
-  @BelongsTo(() => Map, 'mapId')
-    map!: Map
-
-  @BelongsTo(() => Match, 'matchId')
+  @BelongsTo(() => Match)
     match!: Match
 
-  @BelongsTo(() => Player, 'homePlayerId')
-    homePlayer!: Player
+  @ForeignKey(() => Map)
+    mapId!: number
 
-  @BelongsTo(() => Player, 'homeTeamId')
-    homeTeam!: Team
+  @BelongsTo(() => Map)
+    map!: Map
+
+  @ForeignKey(() => Player)
+    homePlayerId?: number
+
+  @BelongsTo(() => Player, 'homePlayerId')
+    homePlayer?: Player
+
+  @ForeignKey(() => Team)
+    homeTeamId!: number
+
+  @BelongsTo(() => Team, 'homeTeamId')
+    homeTeam?: Team
+
+  @ForeignKey(() => Player)
+    awayPlayerId?: number
 
   @BelongsTo(() => Player, 'awayPlayerId')
-    awayPlayer!: Player
+    awayPlayer?: Player
 
-  @BelongsTo(() => Player, 'awayTeamId')
-    awayTeam!: Team
+  @ForeignKey(() => Team)
+    awayTeamId?: number
+
+  @BelongsTo(() => Team, 'awayTeamId')
+    awayTeam?: Team
+
+  @CreatedAt
+  @Column
+    createdAt!: Date
+
+  @UpdatedAt
+  @Column
+    updatedAt!: Date
 
   declare static paginate: (options: PaginateOptions<Game>) => Promise<PaginationConnection<Game>>
 }
+
