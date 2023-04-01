@@ -1,16 +1,24 @@
-import { Model, Table, Column, BelongsTo } from 'sequelize-typescript'
+import { Model, Table, Column, BelongsTo, CreatedAt, UpdatedAt } from 'sequelize-typescript'
 import { PaginateOptions, PaginationConnection } from 'sequelize-cursor-pagination'
-
+import { IMatchAttributes, IMatchCreationAttributes } from '../models/index.js'
 import { Player } from '../../players/db/player.js'
 import { Team } from '../../players/db/team.js'
 
 @Table
-export class Match extends Model {
+export class Match extends Model<IMatchAttributes, IMatchCreationAttributes> {
   @Column
     type!: string
 
   @Column
     winner?: string
+
+  @CreatedAt
+  @Column
+    createdAt!: Date
+
+  @UpdatedAt
+  @Column
+    updatedAt!: Date
 
   @BelongsTo(() => Player, 'homePlayerId')
     homePlayer?: Player
