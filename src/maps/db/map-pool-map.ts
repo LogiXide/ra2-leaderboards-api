@@ -1,9 +1,10 @@
-import { Model, Table, Column, ForeignKey } from 'sequelize-typescript'
+import { Model, Table, Column, ForeignKey, CreatedAt, UpdatedAt } from 'sequelize-typescript'
+import { IMapPoolMapAttributes, IMapPoolMapCreationAttributes } from '../models/index.js'
 import { MapPool } from './map-pool.js'
 import { Map } from './map.js'
 
 @Table({ tableName: 'map_pools_maps' })
-export class MapPoolMap extends Model {
+export class MapPoolMap extends Model<IMapPoolMapAttributes, IMapPoolMapCreationAttributes> {
   @ForeignKey(() => MapPool)
   @Column
     mapPoolId!: number
@@ -11,4 +12,12 @@ export class MapPoolMap extends Model {
   @ForeignKey(() => Map)
   @Column
     mapId!: number
+
+  @CreatedAt
+  @Column
+    createdAt!: Date
+
+  @UpdatedAt
+  @Column
+    updatedAt!: Date
 }
