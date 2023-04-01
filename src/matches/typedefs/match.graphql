@@ -3,15 +3,17 @@ type Match {
   type: String!
   winner: String
   homePlayerId: Int
+  homePlayer: Player
   homeTeamId: Int
+  homeTeam: Team
   awayPlayerId: Int
+  awayPlayer: Player
   awayTeamId: Int
+  awayTeam: Team
+  createdAt: String!
+  updatedAt: String!
 
   games: [Game]
-  homePlayer: Player
-  homeTeam: Team
-  awayPlayer: Player
-  awayTeam: Team
 }
 
 input CreateMatchInput {

@@ -29,27 +29,27 @@ export class Game extends Model<IGameAttributes, IGameCreationAttributes> {
     map!: Map
 
   @ForeignKey(() => Player)
-    homePlayerId!: number
+    homePlayerId?: number
 
-  @BelongsTo(() => Player)
+  @BelongsTo(() => Player, 'homePlayerId')
     homePlayer?: Player
 
-  @ForeignKey(() => Player)
+  @ForeignKey(() => Team)
     homeTeamId!: number
 
-  @BelongsTo(() => Player)
+  @BelongsTo(() => Team, 'homeTeamId')
     homeTeam?: Team
 
   @ForeignKey(() => Player)
-    awayPlayerId!: number
+    awayPlayerId?: number
 
-  @BelongsTo(() => Player)
+  @BelongsTo(() => Player, 'awayPlayerId')
     awayPlayer?: Player
 
-  @ForeignKey(() => Player)
-    awayTeamID!: number
+  @ForeignKey(() => Team)
+    awayTeamId?: number
 
-  @BelongsTo(() => Player)
+  @BelongsTo(() => Team, 'awayTeamId')
     awayTeam?: Team
 
   @CreatedAt
