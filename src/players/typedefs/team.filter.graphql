@@ -26,5 +26,6 @@ type TeamsResponse {
 }
 
 type Query {
+  team(id: Int): Team
   teams(where: TeamsWhere, options: TeamsOptions): TeamsResponse!
 }
