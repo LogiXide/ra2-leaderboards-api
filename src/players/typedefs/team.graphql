@@ -4,3 +4,24 @@ type Team {
   createdAt: String!
   updatedAt: String!
 }
+
+input CreateTeamInput {
+  name: String!
+}
+
+input UpdateTeamInput {
+  name: String!
+}
+
+type CreateTeamResponse {
+  teams: [Team!]!
+}
+
+type UpdateTeamResponse {
+  teams: [Team!]
+}
+
+type Mutation {
+  createTeam(input: CreateTeamInput!): CreateTeamResponse!
+  updateTeam(id: Int!, input: UpdateTeamInput!): UpdateTeamResponse!
+}
