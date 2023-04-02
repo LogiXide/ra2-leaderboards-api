@@ -3,9 +3,6 @@ import { Optional } from 'sequelize'
 export interface IPlayerAttributes {
   id: number;
   name: string;
-  spots: number;
-  author: string;
-  imageUrl: string;
   createdAt: Date;
   updatedAt: Date;
 }
