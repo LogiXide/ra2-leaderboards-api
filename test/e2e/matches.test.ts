@@ -369,7 +369,7 @@ describe('matches', () => {
     })
   })
 
-  describe('createMatchPool mutation', () => {
+  describe('createMatch mutation', () => {
     it('should be able to create match (single)', async () => {
       const query = gql`
         mutation($input: CreateMatchInput!) {
