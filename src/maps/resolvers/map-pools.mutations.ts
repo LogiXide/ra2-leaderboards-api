@@ -1,7 +1,4 @@
-import { delegateToSchema } from '@graphql-tools/delegate'
-import { TransformQuery } from '@graphql-tools/wrap'
 import _ from 'lodash'
-import { FieldNode, GraphQLResolveInfo, OperationTypeNode, SelectionSetNode } from 'graphql'
 import { Op } from 'sequelize'
 
 import { Context } from '../../types.js'
@@ -35,7 +32,6 @@ const mapPoolsMutations = {
     parent: unknown,
     args: ICreateMapPoolArgs,
     context: Context,
-    info: GraphQLResolveInfo,
   ): Promise<ICreateMapPoolResponse> => {
     const mapPool = await context.db.mapPools.create(args.input)
 
@@ -51,27 +47,8 @@ const mapPoolsMutations = {
       await mapPool.$add('maps', maps)
     }
 
-    const response = await delegateToSchema({
-      schema: info.schema,
-      operation: OperationTypeNode.QUERY,
-      fieldName: 'mapPool',
-      args: {
-        id: mapPool.id,
-      },
-      context,
-      info,
-      transforms: [
-        new TransformQuery<Context>({
-          path: ['mapPool'],
-          queryTransformer: (selectionSet) => {
-            return (selectionSet?.selections[0] as FieldNode).selectionSet as SelectionSetNode
-          },
-        })
-      ],
-    }) as MapPool
-
     return {
-      mapPools: [response],
+      mapPools: [mapPool],
     }
   },
 
@@ -79,7 +56,6 @@ const mapPoolsMutations = {
     parent: unknown,
     args: IUpdateMapPoolArgs,
     context: Context,
-    info: GraphQLResolveInfo,
   ): Promise<IUpdateMapPoolResponse> => {
     const mapPool = await context.db.mapPools.findByPk(args.id)
 
@@ -106,27 +82,8 @@ const mapPoolsMutations = {
       }
     }
 
-    const response = await delegateToSchema({
-      schema: info.schema,
-      operation: OperationTypeNode.QUERY,
-      fieldName: 'mapPool',
-      args: {
-        id: mapPool?.id,
-      },
-      context,
-      info,
-      transforms: [
-        new TransformQuery<Context>({
-          path: ['mapPool'],
-          queryTransformer: (selectionSet) => {
-            return (selectionSet?.selections[0] as FieldNode).selectionSet as SelectionSetNode
-          },
-        })
-      ],
-    }) as MapPool
-
     return {
-      mapPools: response ? [response] : null,
+      mapPools: mapPool ? [mapPool] : null,
     }
   },
 }
