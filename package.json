@@ -37,10 +37,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.3.0",
-    "@graphql-tools/delegate": "^9.0.28",
     "@graphql-tools/merge": "^8.3.17",
-    "@graphql-tools/schema": "^9.0.15",
-    "@graphql-tools/wrap": "^9.3.8",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dataloader": "^2.2.2",
