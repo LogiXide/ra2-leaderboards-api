@@ -3,7 +3,6 @@ import { SortDirection } from '../../core/models/index.js'
 
 export interface IGamesWhere {
   id_EQUALS?: number
-  name_STARTS_WITH?: string
 }
 
 export interface IGamesOptions {
@@ -19,7 +18,6 @@ export interface IGamesSortOptions {
 
 export interface IMatchesWhere {
   id_EQUALS?: number
-  name_STARTS_WITH?: string
 }
 
 export interface IMatchesOptions {

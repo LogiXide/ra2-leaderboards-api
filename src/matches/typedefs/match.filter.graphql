@@ -4,7 +4,6 @@ enum MatchSortOption {
 
 input MatchesWhere {
   id_EQUALS: Int
-  name_STARTS_WITH: String
 }
 
 input MatchesOptions {
