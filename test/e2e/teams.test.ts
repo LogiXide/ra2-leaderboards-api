@@ -98,44 +98,70 @@ describe('teams', () => {
       expect(actual.teams.totalCount).toEqual(5)
       expect(actual.teams.totalPages).toEqual(3)
     })
-  })
 
-  describe('team query', () => {
-    it('should be able to return team', async () => {
+    it('should be able to return teams (filtering, id_EQUALS)', async () => {
       const query = gql`
-        query($id: Int!) {
-          team(id: $id) {
-            id
-            name
+        query($where: TeamsWhere, $options: TeamsOptions) {
+          teams(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: ctx.team2.id,
+        where: {
+          id_EQUALS: ctx.team0.id,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.team).toEqual({
-        id: ctx.team2.id,
-        name: 'team2',
-      })
+      expect(actual.teams.data).toBeArrayOfSize(1)
+      expect(actual.teams.data).toEqual([
+        {
+          id: ctx.team0.id,
+          name: 'team0',
+        },
+      ])
+      expect(actual.teams.pageNumber).toEqual(1)
+      expect(actual.teams.size).toEqual(1)
+      expect(actual.teams.totalCount).toEqual(1)
+      expect(actual.teams.totalPages).toEqual(1)
     })
 
-    it('should be able to return null (not found)', async () => {
+    it('should be able to return teams (filtering, id_EQUALS, not found)', async () => {
       const query = gql`
-        query($id: Int!) {
-          team(id: $id) {
-            id
-            name
+        query($where: TeamsWhere, $options: TeamsOptions) {
+          teams(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: 123456,
+        where: {
+          id_EQUALS: 123456,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.team).toEqual(null)
+      expect(actual.teams.data).toBeArrayOfSize(0)
+      expect(actual.teams.data).toEqual([])
+      expect(actual.teams.pageNumber).toEqual(1)
+      expect(actual.teams.size).toEqual(1)
+      expect(actual.teams.totalCount).toEqual(0)
+      expect(actual.teams.totalPages).toEqual(1)
     })
   })
 

@@ -1,7 +1,9 @@
+import { Op } from 'sequelize'
+
 import { Context } from '../../types.js'
-import { PaginationResponse } from '../../core/models/index.js'
-import { toPaginationResponse } from '../../core/utils/pagination.js'
-import { ITeamsWhere, ITeamsOptions } from '../models/index.js'
+import { PaginationResponse, SortDirection } from '../../core/models/index.js'
+import { edgesToPaginationResponse, entityToPaginationResponse } from '../../core/utils/pagination.js'
+import { ITeamsWhere, ITeamsOptions, TeamSortOption } from '../models/index.js'
 import { Team } from '../db/team.js'
 
 interface ITeamsArgs {
@@ -15,16 +17,33 @@ interface ITeamArgs {
 
 const teamsQueries = {
   teams: async (parent: unknown, args: ITeamsArgs, context: Context): Promise<PaginationResponse<Team>> => {
+    if (args.where?.id_EQUALS) {
+      const team = await context.db.teams.findByPk(args.where?.id_EQUALS)
+
+      return entityToPaginationResponse(team)
+    }
+
     const limit = args.options?.limit || 100
     const offset = args.options?.offset || 0
+    const sortColumn = args.options?.sort?.option || TeamSortOption.by_id
+    const sortOrder = args.options?.sort?.direction || SortDirection.ASC
+
+    const where: any = {}
+
+    if (args.where?.name_STARTS_WITH) {
+      where.name = {
+        [Op.iLike]: `${args.where.name_STARTS_WITH.toLowerCase()}%`,
+      }
+    }
 
     const { edges, totalCount } = await context.db.teams.paginate({
-      order: [['id', 'ASC']],
+      where,
+      order: [[sortColumn, sortOrder]],
       limit,
       offset,
     })
 
-    return toPaginationResponse(edges, totalCount, offset, limit)
+    return edgesToPaginationResponse(edges, totalCount, offset, limit)
   },
   team: async (parent: unknown, args: ITeamArgs, context: Context): Promise<Team | null> => {
     const team = await context.db.teams.findByPk(args.id)

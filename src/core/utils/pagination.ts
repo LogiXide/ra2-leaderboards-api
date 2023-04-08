@@ -1,7 +1,7 @@
 import { PaginationResponse } from '../../core/models/index.js'
 import { PaginationEdge } from 'sequelize-cursor-pagination'
 
-export const toPaginationResponse = <T>(
+export const edgesToPaginationResponse = <T>(
   edges: PaginationEdge<T>[],
   totalCount: number,
   offset: number,
@@ -13,5 +13,17 @@ export const toPaginationResponse = <T>(
     size,
     totalCount,
     totalPages: Math.ceil(totalCount / size),
+  }
+}
+
+export const entityToPaginationResponse = <T>(
+  node: T | null,
+): PaginationResponse<T> => {
+  return {
+    data: node ? [node] : [],
+    pageNumber: 1,
+    size: 1,
+    totalCount: node ? 1 : 0,
+    totalPages: 1,
   }
 }

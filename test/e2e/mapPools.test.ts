@@ -98,44 +98,70 @@ describe('mapPools', () => {
       expect(actual.mapPools.totalCount).toEqual(5)
       expect(actual.mapPools.totalPages).toEqual(3)
     })
-  })
 
-  describe('mapPool query', () => {
-    it('should be able to return mapPool', async () => {
+    it('should be able to return mapPools (filtering, id_EQUALS)', async () => {
       const query = gql`
-        query($id: Int!) {
-          mapPool(id: $id) {
-            id
-            name
+        query($where: MapPoolsWhere, $options: MapPoolsOptions) {
+          mapPools(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: ctx.mapPool1.id,
+        where: {
+          id_EQUALS: ctx.mapPool1.id,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.mapPool).toEqual({
-        id: ctx.mapPool1.id,
-        name: 'mapPool1',
-      })
+      expect(actual.mapPools.data).toBeArrayOfSize(1)
+      expect(actual.mapPools.data).toEqual([
+        {
+          id: ctx.mapPool1.id,
+          name: 'mapPool1',
+        },
+      ])
+      expect(actual.mapPools.pageNumber).toEqual(1)
+      expect(actual.mapPools.size).toEqual(1)
+      expect(actual.mapPools.totalCount).toEqual(1)
+      expect(actual.mapPools.totalPages).toEqual(1)
     })
 
-    it('should be able to return null (not found)', async () => {
+    it('should be able to return mapPools (filtering, id_EQUALS, not found)', async () => {
       const query = gql`
-        query($id: Int!) {
-          mapPool(id: $id) {
-            id
-            name
+        query($where: MapPoolsWhere, $options: MapPoolsOptions) {
+          mapPools(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: 123456,
+        where: {
+          id_EQUALS: 123456,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.mapPool).toEqual(null)
+      expect(actual.mapPools.data).toBeArrayOfSize(0)
+      expect(actual.mapPools.data).toEqual([])
+      expect(actual.mapPools.pageNumber).toEqual(1)
+      expect(actual.mapPools.size).toEqual(1)
+      expect(actual.mapPools.totalCount).toEqual(0)
+      expect(actual.mapPools.totalPages).toEqual(1)
     })
   })
 

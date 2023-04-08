@@ -95,6 +95,71 @@ describe('maps', () => {
       expect(actual.maps.totalPages).toEqual(2)
     })
 
+    it('should be able to return maps (filtering, id_EQUALS)', async () => {
+      const query = gql`
+        query($where: MapsWhere, $options: MapsOptions) {
+          maps(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        where: {
+          id_EQUALS: ctx.tiburon.id,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.maps.data).toBeArrayOfSize(1)
+      expect(actual.maps.data).toEqual([
+        {
+          id: ctx.tiburon.id,
+          name: 'Tiburon',
+        },
+      ])
+      expect(actual.maps.pageNumber).toEqual(1)
+      expect(actual.maps.size).toEqual(1)
+      expect(actual.maps.totalCount).toEqual(1)
+      expect(actual.maps.totalPages).toEqual(1)
+    })
+
+    it('should be able to return maps (filtering, id_EQUALS, not found)', async () => {
+      const query = gql`
+        query($where: MapsWhere, $options: MapsOptions) {
+          maps(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        where: {
+          id_EQUALS: 123456,
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.maps.data).toBeArrayOfSize(0)
+      expect(actual.maps.data).toEqual([])
+      expect(actual.maps.pageNumber).toEqual(1)
+      expect(actual.maps.size).toEqual(1)
+      expect(actual.maps.totalCount).toEqual(0)
+      expect(actual.maps.totalPages).toEqual(1)
+    })
+
     it('should be able to return maps (filtering, name_STARTS_WITH)', async () => {
       const query = gql`
         query ($where: MapsWhere, $options: MapsOptions) {
@@ -195,54 +260,6 @@ describe('maps', () => {
           ],
         },
       ])
-    })
-  })
-
-  describe('map query', () => {
-    it('should be able to return map', async () => {
-      const query = gql`
-        query ($id: Int!) {
-          map(id: $id) {
-            id
-            name
-            spots
-            imageUrl
-            author
-          }
-        }
-      `
-      const variables = {
-        id: ctx.estaminia.id,
-      }
-      const actual = await graphqlClient.request(query, variables, requestHeaders)
-
-      expect(actual.map).toEqual({
-        id: ctx.estaminia.id,
-        name: 'Estaminia',
-        spots: 2,
-        imageUrl: 'https://tempuri.org',
-        author: '[RU]Poluy',
-      })
-    })
-
-    it('should be able to return null (not found)', async () => {
-      const query = gql`
-        query ($id: Int!) {
-          map(id: $id) {
-            id
-            name
-            spots
-            imageUrl
-            author
-          }
-        }
-      `
-      const variables = {
-        id: 123456,
-      }
-      const actual = await graphqlClient.request(query, variables, requestHeaders)
-
-      expect(actual.map).toEqual(null)
     })
   })
 

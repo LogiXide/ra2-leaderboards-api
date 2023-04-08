@@ -3,6 +3,7 @@ enum PlayerSortOption {
 }
 
 input PlayersWhere {
+  id_EQUALS: Int
   name_STARTS_WITH: String
 }
 
