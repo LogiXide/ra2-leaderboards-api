@@ -29,8 +29,10 @@ const playersMutations = {
       players: [player],
     }
   },
+
   updatePlayer: async (parent: unknown, args: IUpdatePlayerArgs, context: Context): Promise<IUpdatePlayerResponse> => {
     const player = await context.db.players.findByPk(args.id)
+
     await player?.update(args.input)
 
     return {

@@ -1,16 +1,20 @@
-type Team { 
+type Team {
   id: Int!
   name: String!
   createdAt: String!
   updatedAt: String!
+
+  players: [Player!]
 }
 
 input CreateTeamInput {
   name: String!
+  playerIds: [Int!]
 }
 
 input UpdateTeamInput {
   name: String!
+  playerIds: [Int!]
 }
 
 type CreateTeamResponse {

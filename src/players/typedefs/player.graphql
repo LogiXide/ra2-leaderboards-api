@@ -3,6 +3,8 @@ type Player {
   name: String!
   createdAt: String!
   updatedAt: String!
+
+  teams: [Team!]
 }
 
 input CreatePlayerInput {

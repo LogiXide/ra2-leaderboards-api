@@ -45,6 +45,7 @@ const teamsQueries = {
 
     return edgesToPaginationResponse(edges, totalCount, offset, limit)
   },
+
   team: async (parent: unknown, args: ITeamArgs, context: Context): Promise<Team | null> => {
     const team = await context.db.teams.findByPk(args.id)
 
