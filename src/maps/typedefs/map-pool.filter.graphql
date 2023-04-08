@@ -3,6 +3,7 @@ enum MapPoolSortOption {
 }
 
 input MapPoolsWhere {
+  id_EQUALS: Int
   name_STARTS_WITH: String
 }
 

@@ -3,7 +3,7 @@ enum GameSortOption {
 }
 
 input GamesWhere {
-  name_STARTS_WITH: String
+  id_EQUALS: Int
 }
 
 input GamesOptions {

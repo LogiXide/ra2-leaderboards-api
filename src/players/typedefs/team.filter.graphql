@@ -3,6 +3,7 @@ enum TeamSortOption {
 }
 
 input TeamsWhere {
+  id_EQUALS: Int
   name_STARTS_WITH: String
 }
 

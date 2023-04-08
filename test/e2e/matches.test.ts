@@ -260,112 +260,85 @@ describe('matches', () => {
       expect(actual.matches.totalCount).toEqual(5)
       expect(actual.matches.totalPages).toEqual(1)
     })
-  })
 
-  describe('match query', () => {
-    it('should be able to return match', async () => {
+    it('should be able to return matches (filtering, id_EQUALS)', async () => {
       const query = gql`
-        query ($id: Int!) {
-          match(id: $id) {
-            id
-            type
-            winner
-            homePlayerId
-            homeTeamId
-            awayPlayerId
-            awayTeamId
+        query ($where: MatchesWhere, $options: MatchesOptions) {
+          matches(where: $where, options: $options) {
+            data {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: ctx.match0.id,
+        where: {
+          id_EQUALS: ctx.match0.id,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.match).toEqual({
-        id: ctx.match0.id,
-        type: 'single',
-        winner: 'home',
-        homePlayerId: ctx.zhasulan.id,
-        homeTeamId: null,
-        awayPlayerId: ctx.alexeyk.id,
-        awayTeamId: null,
-      })
+      expect(actual.matches.data).toBeArrayOfSize(1)
+      expect(actual.matches.data).toEqual([
+        {
+          id: ctx.match0.id,
+          type: 'single',
+          winner: 'home',
+          homePlayerId: ctx.zhasulan.id,
+          homeTeamId: null,
+          awayPlayerId: ctx.alexeyk.id,
+          awayTeamId: null,
+        },
+      ])
+      expect(actual.matches.pageNumber).toEqual(1)
+      expect(actual.matches.size).toEqual(1)
+      expect(actual.matches.totalCount).toEqual(1)
+      expect(actual.matches.totalPages).toEqual(1)
     })
 
-    it('should be able to return match (with game)', async () => {
+    it('should be able to return matches (filtering, id_EQUALS, not found)', async () => {
       const query = gql`
-        query ($id: Int!) {
-          match(id: $id) {
-            id
-            type
-            winner
-            homePlayerId
-            homeTeamId
-            awayPlayerId
-            awayTeamId
-            games {
-                id
-                type
-                winner
-                mapId
-                matchId
-                homePlayerId
-                homeTeamId
-                awayPlayerId
-                awayTeamId
-              }
+        query ($where: MatchesWhere, $options: MatchesOptions) {
+          matches(where: $where, options: $options) {
+            data {
+              id
+              type
+              winner
+              homePlayerId
+              homeTeamId
+              awayPlayerId
+              awayTeamId
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: ctx.match0.id,
+        where: {
+          id_EQUALS: 123456,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.match).toEqual({
-        id: ctx.match0.id,
-        type: 'single',
-        winner: 'home',
-        homePlayerId: ctx.zhasulan.id,
-        homeTeamId: null,
-        awayPlayerId: ctx.alexeyk.id,
-        awayTeamId: null,
-        games: [
-          {
-            id: ctx.match0_game0.id,
-            type: 'single',
-            winner: 'home',
-            mapId: ctx.tiburon.id,
-            matchId: ctx.match0.id,
-            homePlayerId: ctx.zhasulan.id,
-            homeTeamId: null,
-            awayPlayerId: ctx.alexeyk.id,
-            awayTeamId: null,
-          },
-        ],
-      })
-    })
-
-    it('should be able to return null (not found)', async () => {
-      const query = gql`
-        query ($id: Int!) {
-          match(id: $id) {
-            id
-            type
-            homePlayerId
-            homeTeamId
-            awayPlayerId
-            awayTeamId
-          }
-        }
-      `
-      const variables = {
-        id: 123456,
-      }
-      const actual = await graphqlClient.request(query, variables, requestHeaders)
-
-      expect(actual.match).toEqual(null)
+      expect(actual.matches.data).toBeArrayOfSize(0)
+      expect(actual.matches.data).toEqual([])
+      expect(actual.matches.pageNumber).toEqual(1)
+      expect(actual.matches.size).toEqual(1)
+      expect(actual.matches.totalCount).toEqual(0)
+      expect(actual.matches.totalPages).toEqual(1)
     })
   })
 

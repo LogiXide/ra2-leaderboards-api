@@ -1,7 +1,7 @@
 export enum GameSortOption {
-  by_id,
+  by_id = 'id',
 }
 
 export enum MatchSortOption {
-  by_id,
+  by_id = 'id',
 }

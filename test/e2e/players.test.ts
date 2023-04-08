@@ -106,44 +106,105 @@ describe('players', () => {
       expect(actual.players.totalCount).toEqual(7)
       expect(actual.players.totalPages).toEqual(4)
     })
-  })
 
-  describe('player query', () => {
-    it('should be able to return player', async () => {
+    it('should be able to return players (filtering, id_EQUALS)', async () => {
       const query = gql`
-        query($id: Int!) {
-          player(id: $id) {
-            id
-            name
+        query($where: PlayersWhere, $options: PlayersOptions) {
+          players(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: ctx.marko.id,
+        where: {
+          id_EQUALS: ctx.alexeyk.id,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.player).toEqual({
-        id: ctx.marko.id,
-        name: 'Sai',
-      })
+      expect(actual.players.data).toBeArrayOfSize(1)
+      expect(actual.players.data).toEqual([
+        {
+          id: ctx.alexeyk.id,
+          name: 'alexeyk',
+        },
+      ])
+      expect(actual.players.pageNumber).toEqual(1)
+      expect(actual.players.size).toEqual(1)
+      expect(actual.players.totalCount).toEqual(1)
+      expect(actual.players.totalPages).toEqual(1)
     })
 
-    it('should be able to return null (not found)', async () => {
+    it('should be able to return players (filtering, id_EQUALS, not found)', async () => {
       const query = gql`
-        query($id: Int!) {
-          player(id: $id) {
-            id
-            name
+        query($where: PlayersWhere, $options: PlayersOptions) {
+          players(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
           }
         }
       `
       const variables = {
-        id: 123456,
+        where: {
+          id_EQUALS: 123456,
+        },
       }
       const actual = await graphqlClient.request(query, variables, requestHeaders)
 
-      expect(actual.player).toEqual(null)
+      expect(actual.players.data).toBeArrayOfSize(0)
+      expect(actual.players.data).toEqual([])
+      expect(actual.players.pageNumber).toEqual(1)
+      expect(actual.players.size).toEqual(1)
+      expect(actual.players.totalCount).toEqual(0)
+      expect(actual.players.totalPages).toEqual(1)
+    })
+
+    it('should be able to return players (filtering, name_STARTS_WITH)', async () => {
+      const query = gql`
+        query($where: PlayersWhere, $options: PlayersOptions) {
+          players(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        where: {
+          name_STARTS_WITH: 'alexey',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.players.data).toBeArrayOfSize(1)
+      expect(actual.players.data).toEqual([
+        {
+          id: ctx.alexeyk.id,
+          name: 'alexeyk',
+        },
+      ])
+      expect(actual.players.pageNumber).toEqual(1)
+      expect(actual.players.size).toEqual(100)
+      expect(actual.players.totalCount).toEqual(1)
+      expect(actual.players.totalPages).toEqual(1)
     })
   })
 

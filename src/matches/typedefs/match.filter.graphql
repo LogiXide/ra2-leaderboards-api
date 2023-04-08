@@ -3,7 +3,7 @@ enum MatchSortOption {
 }
 
 input MatchesWhere {
-  name_STARTS_WITH: String
+  id_EQUALS: Int
 }
 
 input MatchesOptions {
