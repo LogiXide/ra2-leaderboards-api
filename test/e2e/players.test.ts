@@ -171,6 +171,41 @@ describe('players', () => {
       expect(actual.players.totalCount).toEqual(0)
       expect(actual.players.totalPages).toEqual(1)
     })
+
+    it('should be able to return players (filtering, name_STARTS_WITH)', async () => {
+      const query = gql`
+        query($where: PlayersWhere, $options: PlayersOptions) {
+          players(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        where: {
+          name_STARTS_WITH: 'alexey',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.players.data).toBeArrayOfSize(1)
+      expect(actual.players.data).toEqual([
+        {
+          id: ctx.alexeyk.id,
+          name: 'alexeyk',
+        },
+      ])
+      expect(actual.players.pageNumber).toEqual(1)
+      expect(actual.players.size).toEqual(100)
+      expect(actual.players.totalCount).toEqual(1)
+      expect(actual.players.totalPages).toEqual(1)
+    })
   })
 
   describe('createPlayer mutation', () => {

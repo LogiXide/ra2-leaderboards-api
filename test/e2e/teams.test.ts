@@ -163,6 +163,41 @@ describe('teams', () => {
       expect(actual.teams.totalCount).toEqual(0)
       expect(actual.teams.totalPages).toEqual(1)
     })
+
+    it('should be able to return teams (filtering, name_STARTS_WITH)', async () => {
+      const query = gql`
+        query($where: TeamsWhere, $options: TeamsOptions) {
+          teams(where: $where, options: $options) {
+            data {
+              id
+              name
+            }
+            pageNumber
+            size
+            totalCount
+            totalPages
+          }
+        }
+      `
+      const variables = {
+        where: {
+          name_STARTS_WITH: 'team0',
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.teams.data).toBeArrayOfSize(1)
+      expect(actual.teams.data).toEqual([
+        {
+          id: ctx.team0.id,
+          name: 'team0',
+        },
+      ])
+      expect(actual.teams.pageNumber).toEqual(1)
+      expect(actual.teams.size).toEqual(100)
+      expect(actual.teams.totalCount).toEqual(1)
+      expect(actual.teams.totalPages).toEqual(1)
+    })
   })
 
   describe('createTeam mutation', () => {
