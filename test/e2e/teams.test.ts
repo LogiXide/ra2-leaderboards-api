@@ -226,6 +226,50 @@ describe('teams', () => {
         },
       ])
     })
+
+    it('should be able to create team with players', async () => {
+      const query = gql`
+        mutation($input: CreateTeamInput!) {
+          createTeam(input: $input) {
+            teams {
+              id
+              name
+              players {
+                id
+                name
+              }
+            }
+          }
+        }
+      `
+      const variables = {
+        input: {
+          name: 'foobar',
+          playerIds: [
+            ctx.zhasulan.id,
+            ctx.alexeyk.id,
+          ],
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.createTeam.teams).toEqual([
+        {
+          id: expect.any(Number),
+          name: 'foobar',
+          players: expect.arrayContaining([
+            expect.objectContaining({
+              id: ctx.zhasulan.id,
+              name: '[kz]Zhasulan',
+            }),
+            expect.objectContaining({
+              id: ctx.alexeyk.id,
+              name: 'alexeyk',
+            }),
+          ]),
+        },
+      ])
+    })
   })
 
   describe('updateTeam mutation', () => {
@@ -252,6 +296,51 @@ describe('teams', () => {
         {
           id: ctx.team2.id,
           name: 'foobar',
+        },
+      ])
+    })
+
+    it('should be able to update team with players', async () => {
+      const query = gql`
+        mutation($id: Int!, $input: UpdateTeamInput!) {
+          updateTeam(id: $id, input: $input) {
+            teams {
+              id
+              name
+              players {
+                id
+                name
+              }
+            }
+          }
+        }
+      `
+      const variables = {
+        id: ctx.team1.id,
+        input: {
+          name: 'foobar',
+          playerIds: [
+            ctx.zhasulan.id,
+            ctx.alexeyk.id,
+          ],
+        },
+      }
+      const actual = await graphqlClient.request(query, variables, requestHeaders)
+
+      expect(actual.updateTeam.teams).toEqual([
+        {
+          id: ctx.team1.id,
+          name: 'foobar',
+          players: expect.arrayContaining([
+            expect.objectContaining({
+              id: ctx.zhasulan.id,
+              name: '[kz]Zhasulan',
+            }),
+            expect.objectContaining({
+              id: ctx.alexeyk.id,
+              name: 'alexeyk',
+            }),
+          ]),
         },
       ])
     })
