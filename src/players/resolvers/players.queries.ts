@@ -1,9 +1,9 @@
-import { Op } from 'sequelize'
+import { Op, WhereOptions } from 'sequelize'
 
 import { Context } from '../../types.js'
 import { PaginationResponse, SortDirection } from '../../core/models/index.js'
 import { edgesToPaginationResponse, entityToPaginationResponse } from '../../core/utils/pagination.js'
-import { IPlayersWhere, IPlayersOptions, PlayerSortOption } from '../models/index.js'
+import { IPlayersWhere, IPlayersOptions, PlayerSortOption, IPlayerAttributes } from '../models/index.js'
 import { Player } from '../db/player.js'
 
 interface IPlayersArgs {
@@ -28,7 +28,7 @@ const playersQueries = {
     const sortColumn = args.options?.sort?.option || PlayerSortOption.by_id
     const sortOrder = args.options?.sort?.direction || SortDirection.ASC
 
-    const where: any = {}
+    const where: WhereOptions<IPlayerAttributes> = {}
 
     if (args.where?.name_STARTS_WITH) {
       where.name = {

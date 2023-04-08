@@ -1,9 +1,9 @@
-import { Op } from 'sequelize'
+import { Op, WhereOptions } from 'sequelize'
 
 import { Context } from '../../types.js'
 import { PaginationResponse, SortDirection } from '../../core/models/index.js'
 import { edgesToPaginationResponse, entityToPaginationResponse } from '../../core/utils/pagination.js'
-import { ITeamsWhere, ITeamsOptions, TeamSortOption } from '../models/index.js'
+import { ITeamsWhere, ITeamsOptions, TeamSortOption, ITeamAttributes } from '../models/index.js'
 import { Team } from '../db/team.js'
 
 interface ITeamsArgs {
@@ -28,7 +28,7 @@ const teamsQueries = {
     const sortColumn = args.options?.sort?.option || TeamSortOption.by_id
     const sortOrder = args.options?.sort?.direction || SortDirection.ASC
 
-    const where: any = {}
+    const where: WhereOptions<ITeamAttributes> = {}
 
     if (args.where?.name_STARTS_WITH) {
       where.name = {

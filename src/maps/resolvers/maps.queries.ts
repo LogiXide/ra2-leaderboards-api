@@ -1,9 +1,9 @@
-import { Op } from 'sequelize'
+import { Op, WhereOptions } from 'sequelize'
 
 import { Context } from '../../types.js'
 import { PaginationResponse, SortDirection } from '../../core/models/index.js'
 import { edgesToPaginationResponse, entityToPaginationResponse } from '../../core/utils/pagination.js'
-import { IMapsWhere, IMapsOptions, MapSortOption } from '../models/index.js'
+import { IMapsWhere, IMapsOptions, MapSortOption, IMapAttributes } from '../models/index.js'
 import { Map } from '../db/map.js'
 
 interface IMapsArgs {
@@ -28,7 +28,7 @@ const mapsQueries = {
     const sortColumn = args.options?.sort?.option || MapSortOption.by_id
     const sortOrder = args.options?.sort?.direction || SortDirection.ASC
 
-    const where: any = {}
+    const where: WhereOptions<IMapAttributes> = {}
 
     if (args.where?.name_STARTS_WITH) {
       where.name = {
