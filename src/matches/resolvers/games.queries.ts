@@ -1,5 +1,3 @@
-import { Op } from 'sequelize'
-
 import { Context } from '../../types.js'
 import { PaginationResponse, SortDirection } from '../../core/models/index.js'
 import { edgesToPaginationResponse, entityToPaginationResponse } from '../../core/utils/pagination.js'
@@ -28,16 +26,7 @@ const gamesQueries = {
     const sortColumn = args.options?.sort?.option || GameSortOption.by_id
     const sortOrder = args.options?.sort?.direction || SortDirection.ASC
 
-    const where: any = {}
-
-    if (args.where?.name_STARTS_WITH) {
-      where.name = {
-        [Op.iLike]: `${args.where.name_STARTS_WITH.toLowerCase()}%`,
-      }
-    }
-
     const { edges, totalCount } = await context.db.games.paginate({
-      where,
       order: [[sortColumn, sortOrder]],
       limit,
       offset,
