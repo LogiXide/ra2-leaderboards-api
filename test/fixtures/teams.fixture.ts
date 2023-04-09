@@ -59,33 +59,6 @@ export default (models: Models, ref: Ref): Fixture => {
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
     },
-    {
-      name: 'lgnd',
-      model: Player,
-      data: {
-        name: 'LGND',
-        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-      },
-    },
-    {
-      name: 'kwos',
-      model: Player,
-      data: {
-        name: 'Kwos',
-        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-      },
-    },
-    {
-      name: 'latof',
-      model: Player,
-      data: {
-        name: 'Latof',
-        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-      },
-    },
   ]
 
   const teamsPlayers = [

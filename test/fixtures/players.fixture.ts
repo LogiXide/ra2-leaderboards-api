@@ -75,7 +75,7 @@ export default (models: Models, ref: Ref): Fixture => {
 
   const teams = [
     {
-      name: 'ra2',
+      name: 'team0',
       model: Team,
       data: {
         name: 'Red Alert 2',
@@ -84,7 +84,7 @@ export default (models: Models, ref: Ref): Fixture => {
       },
     },
     {
-      name: 'yr',
+      name: 'team1',
       model: Team,
       data: {
         name: 'Yuri\'s Revenge',
@@ -97,44 +97,26 @@ export default (models: Models, ref: Ref): Fixture => {
   const teamsPlayers = [
     ...[
       {
-        team_id: ref('yr.id'),
+        team_id: ref('team0.id'),
         player_id: ref('zhasulan.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
       {
-        team_id: ref('yr.id'),
+        team_id: ref('team0.id'),
         player_id: ref('alexeyk.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
       {
-        team_id: ref('yr.id'),
+        team_id: ref('team1.id'),
         player_id: ref('gamzat.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
       {
-        team_id: ref('ra2.id'),
+        team_id: ref('team1.id'),
         player_id: ref('marko.id'),
-        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-      },
-      {
-        team_id: ref('ra2.id'),
-        player_id: ref('lgnd.id'),
-        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-      },
-      {
-        team_id: ref('ra2.id'),
-        player_id: ref('kwos.id'),
-        created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-        updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
-      },
-      {
-        team_id: ref('ra2.id'),
-        player_id: ref('latof.id'),
         created_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
         updated_at: new Date(Date.UTC(2023, 1, 1, 0, 0, 0)),
       },
