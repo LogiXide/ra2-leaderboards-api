@@ -1,5 +1,5 @@
 enum MapPoolSortOption {
-	by_id
+  by_id
 }
 
 input MapPoolsWhere {
@@ -9,18 +9,18 @@ input MapPoolsWhere {
 
 input MapPoolsOptions {
   sort: MapPoolSortOption
-	offset: Int
-	limit: Int = 100
+  offset: Int
+  limit: Int = 100
 }
 
 input MapPoolsSortOptions {
   option: MapPoolSortOption!
-	direction: SortDirection = ASC
+  direction: SortDirection = ASC
 }
 
 type MapPoolsResponse {
   data: [MapPool]!
-	pageNumber: Int!
+  pageNumber: Int!
   size: Int!
   totalCount: Int!
   totalPages: Int!

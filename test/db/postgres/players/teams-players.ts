@@ -3,7 +3,8 @@ import { insert_into, delete_from } from '../base.js'
 import { DbBase, PostgresModel } from '../types.js'
 
 export interface DbTeamPlayer extends DbBase {
-  name: string
+  team_id: number
+  player_id: number
 }
 
 export default function Postgres_TeamsPlayers(session: Pool): PostgresModel<DbTeamPlayer> {

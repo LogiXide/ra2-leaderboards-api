@@ -5,6 +5,12 @@ import {
   initMapsDataLoader,
 } from './maps/dataloaders/index.js'
 import {
+  initTeamPlayersByTeamIdDataLoader,
+  initTeamPlayersByPlayerIdDataLoader,
+  initTeamsDataLoader,
+  initPlayersDataLoader,
+} from './players/dataloaders/index.js'
+import {
   initGamesByMatchIdDataLoader,
   initMatchesDataLoader,
 } from './matches/dataloaders/index.js'
@@ -17,6 +23,10 @@ export const initDataLoaders = (): DataLoaders => {
     mapPoolMapsByMapId: initMapPoolMapsByMapIdDataLoader(),
     mapPools: initMapPoolsDataLoader(),
     maps: initMapsDataLoader(),
+    teamPlayersByTeamId: initTeamPlayersByTeamIdDataLoader(),
+    teamPlayersByPlayerId: initTeamPlayersByPlayerIdDataLoader(),
+    teams: initTeamsDataLoader(),
+    players: initPlayersDataLoader(),
     matches: initMatchesDataLoader(),
   }
 }

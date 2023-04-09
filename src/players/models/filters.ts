@@ -7,12 +7,12 @@ export interface IPlayersWhere {
 }
 
 export interface IPlayersOptions {
-  sort?: IMapsSortOptions
+  sort?: IPlayersSortOptions
   offset?: number
   limit?: number
 }
 
-export interface IMapsSortOptions {
+export interface IPlayersSortOptions {
   option: PlayerSortOption
   direction: SortDirection
 }

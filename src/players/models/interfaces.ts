@@ -16,8 +16,8 @@ export interface ITeamAttributes {
 
 export interface ITeamPlayerAttributes {
   id: number
-  mapPoolId: number
-  mapId: number
+  teamId: number
+  playerId: number
   createdAt: Date
   updatedAt: Date
 }
@@ -26,4 +26,4 @@ export interface IPlayerCreationAttributes extends Optional<IPlayerAttributes, '
 
 export interface ITeamCreationAttributes extends Optional<ITeamAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
 
-export interface ITeamPlayerpCreationAttributes extends Optional<ITeamPlayerAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
+export interface ITeamPlayerCreationAttributes extends Optional<ITeamPlayerAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
