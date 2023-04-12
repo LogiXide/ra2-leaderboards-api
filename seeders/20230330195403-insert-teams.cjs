@@ -35,7 +35,7 @@ module.exports = {
         updated_at: new Date()
       },
       {
-        name: 'Team German',
+        name: 'Team Germany',
         created_at: new Date(),
         updated_at: new Date()
       },
